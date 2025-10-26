@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv
+virtualenv/
+pip-log.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Generated files - KEEP THESE for demonstration
+# (Uncomment below if you want to regenerate them each time)
+# game_challenge.json
+# gm_guide.html
+# gm_guide.md
+
+# Keep these for examples:
+# examples/
+# hint/
+
+# Temporary files
+*.log
+*.tmp
+.cache/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# User-specific files
+*.bak
+*.swp
+
