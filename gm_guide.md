@@ -10,70 +10,70 @@
 
 **Task:** Out of the following 6 passenger cards, which one is statistically impossible?
 
-![Box Plot](hint\challenge_1_boxplot.png)
+![Box Plot](hint/challenge_1_boxplot.png)
 
 ### Passenger Cards (Show to Players)
 
 **Card 1**
 ```
-name: Asplund, Master. Edvin Rojj Felix
+name: Palsson, Master. Gosta Leonard
 Pclass: 3
-Age: 3.0
+Age: 2.0
 Sex: male
-Fare: 31.39
+Fare: 21.07
 Embarked: S
 ```
 **Card 2**
 ```
-name: Cribb, Mr. John Hatfield
-Pclass: 3
-Age: 44.0
-Sex: male
-Fare: 16.1
+name: Maioni, Miss. Roberta
+Pclass: 2
+Age: 16.0
+Sex: female
+Fare: 82.71
 Embarked: S
 ```
 **Card 3**
 ```
-name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
-Pclass: 3
-Age: 26.0
-Sex: female
-Fare: 16.1
+name: Hawksford, Mr. Walter James
+Pclass: 1
+Age: nan
+Sex: male
+Fare: 30.0
 Embarked: S
 ```
 **Card 4**
 ```
-name: Vander Planke, Mrs. Julius (Emelia Maria Vandemoortele)
+name: Canavan, Miss. Mary
 Pclass: 3
-Age: 31.0
+Age: 21.0
 Sex: female
-Fare: 18.0
-Embarked: S
+Fare: 7.75
+Embarked: Q
 ```
 **Card 5**
 ```
-name: Carlsson, Mr. August Sigfrid
+name: Fleming, Miss. Margaret
 Pclass: 1
-Age: 28.0
-Sex: male
-Fare: 8.59
-Embarked: S
+Age: nan
+Sex: female
+Fare: 110.88
+Embarked: C
 ```
 **Card 6**
 ```
-name: Attalah, Mr. Sleiman
+name: Lindell, Mr. Edvard Bengtsson
 Pclass: 3
-Age: 30.0
+Age: 36.0
 Sex: male
-Fare: 7.22
-Embarked: C
+Fare: 15.55
+Embarked: S
 ```
 
 ---
 ### GM Guide
 
 > **Hint:** GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.
-> **Answer:** [[REVEAL_ANSWER]]The forged card: 1st class (Pclass=1) but paying £8.59, which is much lower than typical 1st class fares (£5.00-512.33). **(In this game, this card is Card 5)**[[END_REVEAL]]
+> **Answer:** [[REVEAL_ANSWER]]The forged card: 2nd class (Pclass=2) but paying £82.71, which doesn't match typical 2nd class fares (£10.50-73.50). **(In this game, this card is Card 2)**[[END_REVEAL]]
 > **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.
 
 ---
