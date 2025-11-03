@@ -10,39 +10,64 @@
 
 **Task:** Out of the following 6 passenger cards, which one is statistically impossible?
 
-![Box Plot](hint\challenge_1_boxplot.png)
+![Box Plot](hint/challenge_1_boxplot.png)
 
 ### Passenger Cards (Show to Players)
 
 **Card 1**
 ```
+<<<<<<< HEAD
 name: Harris, Mrs. Henry Birkhardt (Irene Wallach)
 Pclass: 1
 Age: 35.0
 Sex: female
 Fare: 83.47
+=======
+name: Palsson, Master. Gosta Leonard
+Pclass: 3
+Age: 2.0
+Sex: male
+Fare: 21.07
+>>>>>>> d35cc1da5de3adcb311aa6835ef158b2f4143131
 Embarked: S
 ```
 **Card 2**
 ```
+<<<<<<< HEAD
 name: Frauenthal, Dr. Henry William
 Pclass: 1
 Age: 50.0
 Sex: male
 Fare: 133.65
+=======
+name: Maioni, Miss. Roberta
+Pclass: 2
+Age: 16.0
+Sex: female
+Fare: 82.71
+>>>>>>> d35cc1da5de3adcb311aa6835ef158b2f4143131
 Embarked: S
 ```
 **Card 3**
 ```
+<<<<<<< HEAD
 name: Rouse, Mr. Richard Henry
 Pclass: 3
 Age: 50.0
 Sex: male
 Fare: 8.05
+=======
+name: Hawksford, Mr. Walter James
+Pclass: 1
+Age: nan
+Sex: male
+Fare: 30.0
+>>>>>>> d35cc1da5de3adcb311aa6835ef158b2f4143131
 Embarked: S
 ```
 **Card 4**
 ```
+<<<<<<< HEAD
 name: Sunderland, Mr. Victor Francis
 Pclass: 3
 Age: 16.0
@@ -57,15 +82,39 @@ Pclass: 3
 Age: nan
 Sex: female
 Fare: 91.78
+=======
+name: Canavan, Miss. Mary
+Pclass: 3
+Age: 21.0
+Sex: female
+Fare: 7.75
+Embarked: Q
+```
+**Card 5**
+```
+name: Fleming, Miss. Margaret
+Pclass: 1
+Age: nan
+Sex: female
+Fare: 110.88
+>>>>>>> d35cc1da5de3adcb311aa6835ef158b2f4143131
 Embarked: C
 ```
 **Card 6**
 ```
+<<<<<<< HEAD
 name: Bowerman, Miss. Elsie Edith
 Pclass: 1
 Age: 22.0
 Sex: female
 Fare: 55.0
+=======
+name: Lindell, Mr. Edvard Bengtsson
+Pclass: 3
+Age: 36.0
+Sex: male
+Fare: 15.55
+>>>>>>> d35cc1da5de3adcb311aa6835ef158b2f4143131
 Embarked: S
 ```
 
@@ -73,7 +122,11 @@ Embarked: S
 ### GM Guide
 
 > **Hint:** GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.
+<<<<<<< HEAD
 > **Answer:** [[REVEAL_ANSWER]]The forged card: 3rd class (Pclass=3) but paying £91.78, which is much higher than typical 3rd class fares (£4.01-69.55). **(In this game, this card is Card 5)**[[END_REVEAL]]
+=======
+> **Answer:** [[REVEAL_ANSWER]]The forged card: 2nd class (Pclass=2) but paying £82.71, which doesn't match typical 2nd class fares (£10.50-73.50). **(In this game, this card is Card 2)**[[END_REVEAL]]
+>>>>>>> d35cc1da5de3adcb311aa6835ef158b2f4143131
 > **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.
 
 ---
