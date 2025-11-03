@@ -16,65 +16,92 @@
 
 **Card 1**
 ```
-name: Asplund, Master. Edvin Rojj Felix
-Pclass: 3
-Age: 3.0
-Sex: male
-Fare: 31.39
+name: Harris, Mrs. Henry Birkhardt (Irene Wallach)
+Pclass: 1
+Age: 35.0
+Sex: female
+Fare: 83.47
 Embarked: S
 ```
 **Card 2**
 ```
-name: Cribb, Mr. John Hatfield
-Pclass: 3
-Age: 44.0
+name: Frauenthal, Dr. Henry William
+Pclass: 1
+Age: 50.0
 Sex: male
-Fare: 16.1
+Fare: 133.65
 Embarked: S
 ```
 **Card 3**
 ```
-name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
+name: Rouse, Mr. Richard Henry
 Pclass: 3
-Age: 26.0
-Sex: female
-Fare: 16.1
+Age: 50.0
+Sex: male
+Fare: 8.05
 Embarked: S
 ```
 **Card 4**
 ```
-name: Vander Planke, Mrs. Julius (Emelia Maria Vandemoortele)
+name: Sunderland, Mr. Victor Francis
 Pclass: 3
-Age: 31.0
-Sex: female
-Fare: 18.0
+Age: 16.0
+Sex: male
+Fare: 8.05
 Embarked: S
 ```
 **Card 5**
 ```
-name: Carlsson, Mr. August Sigfrid
-Pclass: 1
-Age: 28.0
-Sex: male
-Fare: 8.59
-Embarked: S
+name: Moussa, Mrs. (Mantoura Boulos)
+Pclass: 3
+Age: nan
+Sex: female
+Fare: 91.78
+Embarked: C
 ```
 **Card 6**
 ```
-name: Attalah, Mr. Sleiman
-Pclass: 3
-Age: 30.0
-Sex: male
-Fare: 7.22
-Embarked: C
+name: Bowerman, Miss. Elsie Edith
+Pclass: 1
+Age: 22.0
+Sex: female
+Fare: 55.0
+Embarked: S
 ```
 
 ---
 ### GM Guide
 
 > **Hint:** GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.
-> **Answer:** [[REVEAL_ANSWER]]The forged card: 1st class (Pclass=1) but paying £8.59, which is much lower than typical 1st class fares (£5.00-512.33). **(In this game, this card is Card 5)**[[END_REVEAL]]
+> **Answer:** [[REVEAL_ANSWER]]The forged card: 3rd class (Pclass=3) but paying £91.78, which is much higher than typical 3rd class fares (£4.01-69.55). **(In this game, this card is Card 5)**[[END_REVEAL]]
 > **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.
+
+---
+## Challenge 2: Echoes of the Passengers (Timeline Synchronization)
+
+**Story:** Time ripples carry brief echoes of five travelers aboard the Titanic. Align their moments to restore the timeline.
+
+**Known Facts**
+- Boarding order by port: Southampton (S) → Cherbourg (C) → Queenstown (Q).
+- Phrases like 'boarded at' are before the iceberg impact.
+- Words like 'tilted', 'helping', or 'chaos' are after impact but still onboard.
+- Mentions of 'escaped' or 'lifeboat' happen last.
+
+### Echoes (Show to Players)
+
+- Echo A: O'Dwyer boards at Queenstown (Q); a third-class ticket rustles in hand.
+- Echo B: Endres boards at Cherbourg (C); a first-class ticket rustles in hand.
+- Echo C: In the final chaos, Behr finds space in a lifeboat and slips into the night.
+- Echo D: Wiklund boards at Southampton (S); a third-class ticket rustles in hand.
+- Echo E: Lanterns sway as the deck tilts; Pengelly steadies a stranger amid rising alarm.
+
+**Task:** Arrange the echoes (A–E) in correct chronological order.
+
+---
+### GM Guide
+
+> **Answer:** [[REVEAL_ANSWER]]Correct order: D, B, A, E, C. Boarding echoes come first and follow port order S → C → Q; post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last.[[END_REVEAL]]
+> **Obtain:** **Temporal Coordinate Fragment 2** revealed when the order is correct.
 
 ---
 ## Game End

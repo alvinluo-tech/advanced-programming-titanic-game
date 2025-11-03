@@ -339,65 +339,96 @@
 
 <strong>Card 1</strong>
 <pre><code>
-name: Asplund, Master. Edvin Rojj Felix
-Pclass: 3
-Age: 3.0
-Sex: male
-Fare: 31.39
+name: Harris, Mrs. Henry Birkhardt (Irene Wallach)
+Pclass: 1
+Age: 35.0
+Sex: female
+Fare: 83.47
 Embarked: S
 </code></pre>
 <strong>Card 2</strong>
 <pre><code>
-name: Cribb, Mr. John Hatfield
-Pclass: 3
-Age: 44.0
+name: Frauenthal, Dr. Henry William
+Pclass: 1
+Age: 50.0
 Sex: male
-Fare: 16.1
+Fare: 133.65
 Embarked: S
 </code></pre>
 <strong>Card 3</strong>
 <pre><code>
-name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
+name: Rouse, Mr. Richard Henry
 Pclass: 3
-Age: 26.0
-Sex: female
-Fare: 16.1
+Age: 50.0
+Sex: male
+Fare: 8.05
 Embarked: S
 </code></pre>
 <strong>Card 4</strong>
 <pre><code>
-name: Vander Planke, Mrs. Julius (Emelia Maria Vandemoortele)
+name: Sunderland, Mr. Victor Francis
 Pclass: 3
-Age: 31.0
-Sex: female
-Fare: 18.0
+Age: 16.0
+Sex: male
+Fare: 8.05
 Embarked: S
 </code></pre>
 <strong>Card 5</strong>
 <pre><code>
-name: Carlsson, Mr. August Sigfrid
-Pclass: 1
-Age: 28.0
-Sex: male
-Fare: 8.59
-Embarked: S
+name: Moussa, Mrs. (Mantoura Boulos)
+Pclass: 3
+Age: nan
+Sex: female
+Fare: 91.78
+Embarked: C
 </code></pre>
 <strong>Card 6</strong>
 <pre><code>
-name: Attalah, Mr. Sleiman
-Pclass: 3
-Age: 30.0
-Sex: male
-Fare: 7.22
-Embarked: C
+name: Bowerman, Miss. Elsie Edith
+Pclass: 1
+Age: 22.0
+Sex: female
+Fare: 55.0
+Embarked: S
 </code></pre>
 
 <hr>
 <h3>GM Guide</h3>
 
 <blockquote><strong>Hint:</strong> GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.</blockquote>
-<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('aecd8664')">Click to Reveal Answer</button><div class="answer-content" id="answer-aecd8664" style="display:none;">The forged card: 1st class (Pclass=1) but paying £8.59, which is much lower than typical 1st class fares (£5.00-512.33). <strong>(In this game, this card is Card 5)</strong></div></div></blockquote>
+<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('8f962de5', this)">Click to Reveal Answer</button><div class="answer-content" id="answer-8f962de5" style="display:none;">The forged card: 3rd class (Pclass=3) but paying £91.78, which is much higher than typical 3rd class fares (£4.01-69.55). <strong>(In this game, this card is Card 5)</strong></div></div></blockquote>
 <blockquote><strong>Obtain:</strong> <strong>Temporal Coordinate Fragment 1</strong> hidden under the forged card.</blockquote>
+
+<hr>
+<h2>Challenge 2: Echoes of the Passengers (Timeline Synchronization)</h2>
+
+<strong>Story:</strong> Time ripples carry brief echoes of five travelers aboard the Titanic. Align their moments to restore the timeline.
+
+<strong>Known Facts</strong>
+<ul>
+<li>Boarding order by port: Southampton (S) → Cherbourg (C) → Queenstown (Q).</li>
+<li>Phrases like 'boarded at' are before the iceberg impact.</li>
+<li>Words like 'tilted', 'helping', or 'chaos' are after impact but still onboard.</li>
+<li>Mentions of 'escaped' or 'lifeboat' happen last.</li>
+</ul>
+
+<h3>Echoes (Show to Players)</h3>
+
+<ul>
+<li>Echo A: O'Dwyer boards at Queenstown (Q); a third-class ticket rustles in hand.</li>
+<li>Echo B: Endres boards at Cherbourg (C); a first-class ticket rustles in hand.</li>
+<li>Echo C: In the final chaos, Behr finds space in a lifeboat and slips into the night.</li>
+<li>Echo D: Wiklund boards at Southampton (S); a third-class ticket rustles in hand.</li>
+<li>Echo E: Lanterns sway as the deck tilts; Pengelly steadies a stranger amid rising alarm.</li>
+</ul>
+
+<strong>Task:</strong> Arrange the echoes (A–E) in correct chronological order.
+
+<hr>
+<h3>GM Guide</h3>
+
+<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('4f7f2923', this)">Click to Reveal Answer</button><div class="answer-content" id="answer-4f7f2923" style="display:none;">Correct order: D, B, A, E, C. Boarding echoes come first and follow port order S → C → Q; post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last.</div></div></blockquote>
+<blockquote><strong>Obtain:</strong> <strong>Temporal Coordinate Fragment 2</strong> revealed when the order is correct.</blockquote>
 
 <hr>
 <h2>Game End</h2>
@@ -407,9 +438,12 @@ Embarked: C
     </div>
     
     <script>
-    function toggleAnswer(id) {
+    function toggleAnswer(id, btn) {
         const answerDiv = document.getElementById('answer-' + id);
-        const btn = event.target;
+        // Fallback in case btn is not provided
+        if (!btn) {
+            btn = document.querySelector(`button.reveal-btn[onclick*="${id}"]`);
+        }
         
         if (answerDiv.style.display === 'none' || answerDiv.style.display === '') {
             answerDiv.style.display = 'block';
