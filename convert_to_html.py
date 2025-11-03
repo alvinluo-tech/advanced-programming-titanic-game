@@ -9,10 +9,16 @@ def markdown_to_html(md_text):
     
     # Handle answer reveal mechanism
     import uuid
-    reveal_id = str(uuid.uuid4())[:8]
-    html = re.sub(r'\[\[REVEAL_ANSWER\]\](.+?)\[\[END_REVEAL\]\]', 
-                  lambda m: f'<div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer(\'{reveal_id}\')">Click to Reveal Answer</button><div class="answer-content" id="answer-{reveal_id}" style="display:none;">{m.group(1)}</div></div>',
-                  html, flags=re.DOTALL)
+    def _reveal_repl(m):
+        rid = str(uuid.uuid4())[:8]
+        content = m.group(1)
+        return (
+            f'<div class="answer-reveal">'
+            f'<button class="reveal-btn" onclick="toggleAnswer(\'{rid}\', this)">Click to Reveal Answer</button>'
+            f'<div class="answer-content" id="answer-{rid}" style="display:none;">{content}</div>'
+            f'</div>'
+        )
+    html = re.sub(r'\[\[REVEAL_ANSWER\]\](.+?)\[\[END_REVEAL\]\]', _reveal_repl, html, flags=re.DOTALL)
     
     # Headers
     html = re.sub(r'^# (.+)$', r'<h1>\1</h1>', html, flags=re.MULTILINE)
@@ -113,6 +119,36 @@ def format_challenge_1(data):
     md += "> **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.\n\n"
     return md
 
+
+def format_challenge_2(data):
+    """Format Challenge 2 (Echoes of the Passengers) to Markdown"""
+    md = f"## {data['title']}\n\n"
+    md += f"**Story:** {data['story_intro']}\n\n"
+
+    # Known facts shown to players
+    if 'known_facts' in data and data['known_facts']:
+        md += "**Known Facts**\n"
+        for fact in data['known_facts']:
+            md += f"- {fact}\n"
+        md += "\n"
+
+    # Echoes A–E
+    md += "### Echoes (Show to Players)\n\n"
+    for echo in data.get('echoes', []):
+        md += f"- Echo {echo['letter']}: {echo['text']}\n"
+    md += "\n"
+
+    # Task
+    md += f"**Task:** {data['task']}\n\n"
+
+    # GM Guide with answer reveal
+    md += "---\n"
+    md += "### GM Guide\n\n"
+    solution_text = data.get('solution', '')
+    explanation = data.get('explanation', '')
+    md += f"> **Answer:** [[REVEAL_ANSWER]]Correct order: {solution_text}. {explanation}[[END_REVEAL]]\n"
+    md += "> **Obtain:** **Temporal Coordinate Fragment 2** revealed when the order is correct.\n\n"
+    return md
 
 def get_html_template():
     """Return HTML template with embedded CSS"""
@@ -447,9 +483,12 @@ def get_html_template():
     </div>
     
     <script>
-    function toggleAnswer(id) {
+    function toggleAnswer(id, btn) {
         const answerDiv = document.getElementById('answer-' + id);
-        const btn = event.target;
+        // Fallback in case btn is not provided
+        if (!btn) {
+            btn = document.querySelector(`button.reveal-btn[onclick*="${id}"]`);
+        }
         
         if (answerDiv.style.display === 'none' || answerDiv.style.display === '') {
             answerDiv.style.display = 'block';
@@ -596,7 +635,8 @@ def main():
 
     # Format function mapping
     format_functions = [
-        format_challenge_1
+        format_challenge_1,
+        format_challenge_2
     ]
     print("Converting challenges to Markdown...")
     for i, challenge_data in enumerate(game_data['challenges']):

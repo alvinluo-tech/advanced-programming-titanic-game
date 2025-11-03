@@ -201,6 +201,121 @@ def generate_challenge_1(df):
     }
 
 
+def _pclass_to_text(pclass: int) -> str:
+    mapping = {1: "first-class", 2: "second-class", 3: "third-class"}
+    return mapping.get(int(pclass) if pd.notna(pclass) else 3, "third-class")
+
+
+def _last_name(full_name: str) -> str:
+    try:
+        return str(full_name).split(',')[0].strip()
+    except Exception:
+        return str(full_name)
+
+
+def generate_challenge_2(df):
+    """Challenge 2: Echoes of the Passengers (Timeline Synchronization)
+
+    Generates 5 one-line narrative echoes (A–E) that players must order
+    chronologically using known facts:
+    - Boarding order by port: S → C → Q
+    - "boarded at" is pre-impact
+    - "tilted/helping/chaos" is post-impact (onboard)
+    - "escaped/lifeboat" is final
+    """
+
+    # Ensure we have embarkation groups
+    ports = ['S', 'C', 'Q']
+    port_groups = {p: df[df['Embarked'] == p] for p in ports}
+
+    def pick_by_port(p):
+        g = port_groups.get(p)
+        if g is not None and len(g) > 0:
+            return g.sample(1).iloc[0]
+        # Fallback to any passenger if port not found
+        return df.sample(1).iloc[0]
+
+    # Three boarding echoes: S, then C, then Q (true order). We'll shuffle when presenting.
+    s_row = pick_by_port('S')
+    c_row = pick_by_port('C')
+    q_row = pick_by_port('Q')
+
+    def boarding_text(row, port_label):
+        name = _last_name(row.get('Name', 'Unknown'))
+        pclass_txt = _pclass_to_text(row.get('Pclass', 3))
+        return f"{name} boards at {port_label} ({row.get('Embarked','?')}); a {pclass_txt} ticket rustles in hand."
+
+    echo_board_s = {
+        'stage': 'boarding',
+        'port': 'S',
+        'text': boarding_text(s_row, 'Southampton')
+    }
+    echo_board_c = {
+        'stage': 'boarding',
+        'port': 'C',
+        'text': boarding_text(c_row, 'Cherbourg')
+    }
+    echo_board_q = {
+        'stage': 'boarding',
+        'port': 'Q',
+        'text': boarding_text(q_row, 'Queenstown')
+    }
+
+    # One post-impact onboard echo
+    post_row = df.sample(1).iloc[0]
+    post_text = f"Lanterns sway as the deck tilts; {_last_name(post_row.get('Name','A passenger'))} steadies a stranger amid rising alarm."
+    echo_post = {
+        'stage': 'post_impact',
+        'port': None,
+        'text': post_text
+    }
+
+    # One escape echo (final stage)
+    esc_row = df.sample(1).iloc[0]
+    esc_text = f"In the final chaos, {_last_name(esc_row.get('Name','A passenger'))} finds space in a lifeboat and slips into the night."
+    echo_escape = {
+        'stage': 'escape',
+        'port': None,
+        'text': esc_text
+    }
+
+    echoes = [echo_board_s, echo_board_c, echo_board_q, echo_post, echo_escape]
+
+    # Assign letters A–E in a random display order
+    random.shuffle(echoes)
+    letters = ['A', 'B', 'C', 'D', 'E']
+    for i, e in enumerate(echoes):
+        e['id'] = letters[i]
+
+    # Determine the true chronological order for the solution
+    stage_rank = {'boarding': 1, 'post_impact': 2, 'escape': 3}
+    port_rank = {'S': 1, 'C': 2, 'Q': 3, None: 0}
+    sorted_true = sorted(echoes, key=lambda e: (stage_rank.get(e['stage'], 99), port_rank.get(e.get('port'), 0)))
+    solution_letters = [e['id'] for e in sorted_true]
+
+    # Known facts presented to players
+    known_facts = [
+        "Boarding order by port: Southampton (S) → Cherbourg (C) → Queenstown (Q).",
+        "Phrases like 'boarded at' are before the iceberg impact.",
+        "Words like 'tilted', 'helping', or 'chaos' are after impact but still onboard.",
+        "Mentions of 'escaped' or 'lifeboat' happen last."
+    ]
+
+    # Build final structure
+    return {
+        "title": "Challenge 2: Echoes of the Passengers (Timeline Synchronization)",
+        "story_intro": "Time ripples carry brief echoes of five travelers aboard the Titanic. Align their moments to restore the timeline.",
+        "echoes": [{"letter": e['id'], "text": e['text']} for e in echoes],
+        "known_facts": known_facts,
+        "task": "Arrange the echoes (A–E) in correct chronological order.",
+        "solution": ", ".join(solution_letters),
+        "explanation": (
+            "Boarding echoes come first and follow port order S → C → Q; "
+            "post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last."
+        )
+    }
+
+
 def generate_game_data():
     """Generate fresh game data from dataset"""
     print("Loading Titanic dataset...")
@@ -209,7 +324,9 @@ def generate_game_data():
     print("Generating challenge 1...")
     # Pass the full DataFrame so it can generate the boxplot
     challenge_1 = generate_challenge_1(df)
-    
+    print("Generating challenge 2...")
+    challenge_2 = generate_challenge_2(df)
+
     game_data = {
         "story_background": {
             "theme": "The Temporal Rift on the Titanic",
@@ -218,6 +335,7 @@ def generate_game_data():
         },
         "challenges": [
             challenge_1,
+            challenge_2,
         ]
     }
     
