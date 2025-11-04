@@ -156,23 +156,15 @@ def format_challenge_4(data):
 
     md += "**Plaintext Letter**"
     md += "```"
-    md += f"{data['plaintext_letter']}\n"
+    md += f"{data['intercepted_letter']}\n"
     md += "```\n"
 
     md += "**Encrypted Letter**"
     md += "```"
-    md += f"{data['encrypted_letter']}\n"
+    md += f"{data['ciphertext_letter']}\n"
     md += "```\n"
 
     md += '### Possible suspects \n\n'
-
-    """
-    for card in data['letters'][0]:
-        md += "```\n"
-        md += f"**{card}**\n"
-        md += "```\n"
-    """
-
 
     return md
 

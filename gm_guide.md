@@ -16,56 +16,56 @@
 
 **Card 1**
 ```
-name: Williams, Mr. Howard Hugh "Harry"
+name: Sawyer, Mr. Frederick Charles
 Pclass: 3
-Age: nan
+Age: 24.5
 Sex: male
 Fare: 8.05
 Embarked: S
 ```
 **Card 2**
 ```
-name: Carter, Miss. Lucile Polk
-Pclass: 1
-Age: 14.0
-Sex: female
-Fare: 120.0
-Embarked: S
-```
-**Card 3**
-```
-name: Lefebre, Miss. Jeannie
+name: O'Driscoll, Miss. Bridget
 Pclass: 3
 Age: nan
 Sex: female
-Fare: 25.47
+Fare: 7.75
+Embarked: Q
+```
+**Card 3**
+```
+name: Palsson, Miss. Stina Viola
+Pclass: 3
+Age: 3.0
+Sex: female
+Fare: 21.07
 Embarked: S
 ```
 **Card 4**
 ```
-name: Warren, Mrs. Frank Manley (Anna Sophia Atkinson)
-Pclass: 1
-Age: 60.0
-Sex: female
-Fare: 6.95
-Embarked: C
+name: McEvoy, Mr. Michael
+Pclass: 3
+Age: nan
+Sex: male
+Fare: 497.75
+Embarked: Q
 ```
 **Card 5**
 ```
-name: Panula, Master. Juha Niilo
-Pclass: 3
-Age: 7.0
-Sex: male
-Fare: 39.69
-Embarked: S
+name: Newell, Miss. Marjorie
+Pclass: 1
+Age: 23.0
+Sex: female
+Fare: 113.28
+Embarked: C
 ```
 **Card 6**
 ```
-name: Peters, Miss. Katie
+name: McDermott, Miss. Brigdet Delia
 Pclass: 3
 Age: nan
 Sex: female
-Fare: 8.14
+Fare: 7.79
 Embarked: Q
 ```
 
@@ -73,7 +73,7 @@ Embarked: Q
 ### GM Guide
 
 > **Hint:** GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.
-> **Answer:** [[REVEAL_ANSWER]]The forged card: 1st class (Pclass=1) but paying £6.95, which is much lower than typical 1st class fares (£5.00-512.33). **(In this game, this card is Card 4)**[[END_REVEAL]]
+> **Answer:** [[REVEAL_ANSWER]]The forged card: 3rd class (Pclass=3) but paying £497.75, which is much higher than typical 3rd class fares (£4.01-69.55). **(In this game, this card is Card 4)**[[END_REVEAL]]
 > **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.
 
 ---
@@ -91,38 +91,38 @@ Embarked: Q
 
 **Card 1**
 ```
-Name: Mionoff, Mr. Stoytcho
+Name: Razi, Mr. Raihed
 Pclass: 3
-Age: 28
+Age: 23
 Sex: male
-Fare: 7.9
-Embarked: S
+Fare: 7.23
+Embarked: C
 ```
 **Card 2**
 ```
-Name: Olsen, Mr. Ole Martin
-Pclass: 3
-Age: 29
+Name: Graham, Mr. George Edward
+Pclass: 1
+Age: 38
 Sex: male
-Fare: 7.31
+Fare: 153.46
 Embarked: S
 ```
 **Card 3**
 ```
-Name: Cribb, Mr. John Hatfield
-Pclass: 3
-Age: 44
-Sex: male
-Fare: 16.1
+Name: Allison, Miss. Helen Loraine
+Pclass: 1
+Age: 2
+Sex: female
+Fare: 151.55
 Embarked: S
 ```
 **Card 4**
 ```
-Name: Allison, Master. Hudson Trevor
-Pclass: 1
-Age: 1
-Sex: male
-Fare: 151.55
+Name: Hocking, Mrs. Elizabeth (Eliza Needs)
+Pclass: 2
+Age: 54
+Sex: female
+Fare: 23.0
 Embarked: S
 ```
 
@@ -142,9 +142,9 @@ Embarked: S
 
 ### Letters from the Stowaway 
 
-**Plaintext Letter**```This is my plaintext letter
+**Plaintext Letter**```Hello, this is unencrypted text
 ```
-**Encrypted Letter**```This is my encrypted letter
+**Encrypted Letter**```3his is going 3o be encryp3ed
 ```
 ### Possible suspects 
 

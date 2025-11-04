@@ -11,58 +11,58 @@
             "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
             "passenger_cards": [
                 {
-                    "name": "Williams, Mr. Howard Hugh \"Harry\"",
+                    "name": "Sawyer, Mr. Frederick Charles",
                     "Pclass": 3,
-                    "Age": NaN,
+                    "Age": 24.5,
                     "Sex": "male",
                     "Fare": 8.05,
                     "Embarked": "S"
                 },
                 {
-                    "name": "Carter, Miss. Lucile Polk",
-                    "Pclass": 1,
-                    "Age": 14.0,
-                    "Sex": "female",
-                    "Fare": 120.0,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Lefebre, Miss. Jeannie",
+                    "name": "O'Driscoll, Miss. Bridget",
                     "Pclass": 3,
                     "Age": NaN,
                     "Sex": "female",
-                    "Fare": 25.47,
+                    "Fare": 7.75,
+                    "Embarked": "Q"
+                },
+                {
+                    "name": "Palsson, Miss. Stina Viola",
+                    "Pclass": 3,
+                    "Age": 3.0,
+                    "Sex": "female",
+                    "Fare": 21.07,
                     "Embarked": "S"
                 },
                 {
-                    "name": "Warren, Mrs. Frank Manley (Anna Sophia Atkinson)",
-                    "Pclass": 1,
-                    "Age": 60.0,
-                    "Sex": "female",
-                    "Fare": 6.95,
-                    "Embarked": "C",
+                    "name": "McEvoy, Mr. Michael",
+                    "Pclass": 3,
+                    "Age": NaN,
+                    "Sex": "male",
+                    "Fare": 497.75,
+                    "Embarked": "Q",
                     "_is_fake": true
                 },
                 {
-                    "name": "Panula, Master. Juha Niilo",
-                    "Pclass": 3,
-                    "Age": 7.0,
-                    "Sex": "male",
-                    "Fare": 39.69,
-                    "Embarked": "S"
+                    "name": "Newell, Miss. Marjorie",
+                    "Pclass": 1,
+                    "Age": 23.0,
+                    "Sex": "female",
+                    "Fare": 113.28,
+                    "Embarked": "C"
                 },
                 {
-                    "name": "Peters, Miss. Katie",
+                    "name": "McDermott, Miss. Brigdet Delia",
                     "Pclass": 3,
                     "Age": NaN,
                     "Sex": "female",
-                    "Fare": 8.14,
+                    "Fare": 7.79,
                     "Embarked": "Q"
                 }
             ],
             "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
             "hint_chart": "hint\\challenge_1_boxplot.png",
-            "answer": "The forged card: 1st class (Pclass=1) but paying £6.95, which is much lower than typical 1st class fares (£5.00-512.33)."
+            "answer": "The forged card: 3rd class (Pclass=3) but paying £497.75, which is much higher than typical 3rd class fares (£4.01-69.55)."
         },
         {
             "id": 3,
@@ -71,35 +71,35 @@
             "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
             "passengers": [
                 {
-                    "Name": "Mionoff, Mr. Stoytcho",
+                    "Name": "Razi, Mr. Raihed",
                     "Pclass": 3,
-                    "Age": 28,
+                    "Age": 23,
                     "Sex": "male",
-                    "Fare": 7.9,
-                    "Embarked": "S"
+                    "Fare": 7.23,
+                    "Embarked": "C"
                 },
                 {
-                    "Name": "Olsen, Mr. Ole Martin",
-                    "Pclass": 3,
-                    "Age": 29,
-                    "Sex": "male",
-                    "Fare": 7.31,
-                    "Embarked": "S"
-                },
-                {
-                    "Name": "Cribb, Mr. John Hatfield",
-                    "Pclass": 3,
-                    "Age": 44,
-                    "Sex": "male",
-                    "Fare": 16.1,
-                    "Embarked": "S"
-                },
-                {
-                    "Name": "Allison, Master. Hudson Trevor",
+                    "Name": "Graham, Mr. George Edward",
                     "Pclass": 1,
-                    "Age": 1,
+                    "Age": 38,
                     "Sex": "male",
+                    "Fare": 153.46,
+                    "Embarked": "S"
+                },
+                {
+                    "Name": "Allison, Miss. Helen Loraine",
+                    "Pclass": 1,
+                    "Age": 2,
+                    "Sex": "female",
                     "Fare": 151.55,
+                    "Embarked": "S"
+                },
+                {
+                    "Name": "Hocking, Mrs. Elizabeth (Eliza Needs)",
+                    "Pclass": 2,
+                    "Age": 54,
+                    "Sex": "female",
+                    "Fare": 23.0,
                     "Embarked": "S"
                 }
             ],
@@ -124,8 +124,8 @@
             "title": "Letters from a Stowaway",
             "story": "Story",
             "instructions": "Instructions",
-            "plaintext_letter": "This is my plaintext letter",
-            "encrypted_letter": "This is my encrypted letter"
+            "intercepted_letter": "Hello, this is unencrypted text",
+            "ciphertext_letter": "3his is going 3o be encryp3ed"
         }
     ]
 }

@@ -118,6 +118,27 @@ def get_fare_statistics_by_class(df):
             }
     return stats
 
+# Encryption algorithm for monoalphabetic substitution cipher
+# Key is a string of 26 characters
+def encrypt(plain_text, key):
+    cipher_text = ""
+    plain_text = plain_text.lower()
+    for char in plain_text:
+        # Ignore spaces
+        if char == " ":
+            cipher_text += ' '
+        else:
+            # Get index of plain text within alphabet (start from 0)
+            pos = ord(char) - ord('a')
+            cipher_text += key[pos]
+        
+    return cipher_text
+
+# Decryption algorithm for monoalphabetic substitution cipher
+def decrypt(cipher_text, key):
+    # Have to invert key to decrypt
+    pass
+
 def generate_challenge_1(df):
     """Generate Challenge 1: Find the Anomaly"""
     # Filter out passengers with zero or missing fares for realistic data
@@ -332,15 +353,21 @@ def generate_challenge_4(df):
     """Generate challenge 4 - Letters from a Stowaway"""
     stowaway = df.sample(1)
 
-    letters = ["Letter1", "Letter2"]
+    cipher_key = "abcdefghijklmnopqrstuvwxyz"
+
+    # Intercepted letter is not to be encrypted as it is to be used to help decrypt the other letter
+    intercepted_letter = "Hello, this is unencrypted text"
+    # Plaintext letter should not contain numbers.
+    plaintext_letter = "This is going to be encrypted"
+    ciphertext_letter = encrypt(plaintext_letter, cipher_key)
 
     challenge_data = {
         "id": 4,
         "title": "Letters from a Stowaway",
         "story": "Story",
         "instructions": "Instructions",
-        "plaintext_letter" : "This is my plaintext letter",
-        "encrypted_letter" : "This is my encrypted letter"
+        "intercepted_letter" : intercepted_letter,
+        "ciphertext_letter" : ciphertext_letter
     }
 
     return challenge_data
