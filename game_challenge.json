@@ -2,7 +2,7 @@
     "story_background": {
         "theme": "The Temporal Rift on the Titanic",
         "role": "You are a team of time travelers.",
-        "goal": "Before the ship sinks, find 4 missing 'temporal coordinate fragments'."
+        "goal": "Before the ship sinks, find 5 missing 'temporal coordinate fragments'."
     },
     "challenges": [
         {
@@ -11,93 +11,113 @@
             "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
             "passenger_cards": [
                 {
-                    "name": "Wiklund, Mr. Jakob Alfred",
-                    "Pclass": 3,
-                    "Age": 18.0,
+                    "name": "Carter, Rev. Ernest Courtenay",
+                    "Pclass": 2,
+                    "Age": 54.0,
                     "Sex": "male",
-                    "Fare": 6.5,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Danbom, Mr. Ernst Gilbert",
-                    "Pclass": 3,
-                    "Age": 34.0,
-                    "Sex": "male",
-                    "Fare": 14.4,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Jonsson, Mr. Carl",
-                    "Pclass": 3,
-                    "Age": 32.0,
-                    "Sex": "male",
-                    "Fare": 7.85,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Natsch, Mr. Charles H",
-                    "Pclass": 1,
-                    "Age": 37.0,
-                    "Sex": "male",
-                    "Fare": 8.07,
-                    "Embarked": "C",
+                    "Fare": 270.29,
+                    "Embarked": "S",
                     "_is_fake": true
                 },
                 {
-                    "name": "Svensson, Mr. Olof",
+                    "name": "Andersson, Mr. Anders Johan",
                     "Pclass": 3,
-                    "Age": 24.0,
+                    "Age": 39.0,
                     "Sex": "male",
-                    "Fare": 7.8,
+                    "Fare": 31.27,
                     "Embarked": "S"
                 },
                 {
-                    "name": "Van der hoef, Mr. Wyckoff",
-                    "Pclass": 1,
-                    "Age": 61.0,
+                    "name": "Tikkanen, Mr. Juho",
+                    "Pclass": 3,
+                    "Age": 32.0,
                     "Sex": "male",
-                    "Fare": 33.5,
+                    "Fare": 7.92,
+                    "Embarked": "S"
+                },
+                {
+                    "name": "Carr, Miss. Helen \"Ellen\"",
+                    "Pclass": 3,
+                    "Age": 16.0,
+                    "Sex": "female",
+                    "Fare": 7.75,
+                    "Embarked": "Q"
+                },
+                {
+                    "name": "Bishop, Mr. Dickinson H",
+                    "Pclass": 1,
+                    "Age": 25.0,
+                    "Sex": "male",
+                    "Fare": 91.08,
+                    "Embarked": "C"
+                },
+                {
+                    "name": "Berriman, Mr. William John",
+                    "Pclass": 2,
+                    "Age": 23.0,
+                    "Sex": "male",
+                    "Fare": 13.0,
                     "Embarked": "S"
                 }
             ],
             "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
             "hint_chart": "hint\\challenge_1_boxplot.png",
-            "answer": "The forged card: 1st class (Pclass=1) but paying £8.07, which is much lower than typical 1st class fares (£5.00-512.33)."
+            "answer": "The forged card: 2nd class (Pclass=2) but paying £270.29, which doesn't match typical 2nd class fares (£10.50-73.50)."
         },
         {
-            "title": "Challenge 2: Echoes of the Passengers (Timeline Synchronization)",
-            "story_intro": "Time ripples carry brief echoes of five travelers aboard the Titanic. Align their moments to restore the timeline.",
-            "echoes": [
+            "id": 3,
+            "title": "Decipher the Lifeboat Code",
+            "story": "The lifeboat lock requires a 4-digit code based on passengers' survival predictions.",
+            "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
+            "passengers": [
                 {
-                    "letter": "A",
-                    "text": "In the final chaos, Doling finds space in a lifeboat and slips into the night."
+                    "Name": "Reeves, Mr. David",
+                    "Pclass": 2,
+                    "Age": 36,
+                    "Sex": "male",
+                    "Fare": 10.5,
+                    "Embarked": "S"
                 },
                 {
-                    "letter": "B",
-                    "text": "O'Leary boards at Queenstown (Q); a third-class ticket rustles in hand."
+                    "Name": "Foo, Mr. Choong",
+                    "Pclass": 3,
+                    "Age": 50,
+                    "Sex": "male",
+                    "Fare": 56.5,
+                    "Embarked": "S"
                 },
                 {
-                    "letter": "C",
-                    "text": "Lanterns sway as the deck tilts; Baxter steadies a stranger amid rising alarm."
+                    "Name": "Zabour, Miss. Thamine",
+                    "Pclass": 3,
+                    "Age": 22,
+                    "Sex": "female",
+                    "Fare": 14.45,
+                    "Embarked": "C"
                 },
                 {
-                    "letter": "D",
-                    "text": "Markoff boards at Cherbourg (C); a third-class ticket rustles in hand."
-                },
-                {
-                    "letter": "E",
-                    "text": "Lovell boards at Southampton (S); a third-class ticket rustles in hand."
+                    "Name": "Lobb, Mrs. William Arthur (Cordelia K Stanlick)",
+                    "Pclass": 3,
+                    "Age": 26,
+                    "Sex": "female",
+                    "Fare": 16.1,
+                    "Embarked": "S"
                 }
             ],
-            "known_facts": [
-                "Boarding order by port: Southampton (S) → Cherbourg (C) → Queenstown (Q).",
-                "Phrases like 'boarded at' are before the iceberg impact.",
-                "Words like 'tilted', 'helping', or 'chaos' are after impact but still onboard.",
-                "Mentions of 'escaped' or 'lifeboat' happen last."
+            "static_clues": [
+                {
+                    "heading": "Survival Probability: Sex vs. Pclass",
+                    "content": "Female (Class 1): 96.8%; Female (Class 2): 92.1%; Female (Class 3): 50.0%; Male (Class 1): 36.9%; Male (Class 2): 15.7%; Male (Class 3): 13.5%"
+                },
+                {
+                    "heading": "Survival Probability: Age Groups",
+                    "content": "<10: 61.3%; 10-20: 40.2%; 20-40: 38.8%; 40-60: 39.4%; 60+: 26.9%"
+                }
             ],
-            "task": "Arrange the echoes (A–E) in correct chronological order.",
-            "solution": "E, D, B, C, A",
-            "explanation": "Boarding echoes come first and follow port order S → C → Q; post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last."
+            "hint_chart": [
+                "hint\\challenge_3_sex_pclass.png",
+                "hint\\challenge_3_age_group.png"
+            ],
+            "correct_code": "0100"
         }
     ]
 }
