@@ -130,6 +130,13 @@ To add more challenges:
 2. Add the `format_challenge_N()` function in `convert_to_html.py`
 3. Update the `format_functions` list in `convert_to_html.py`
 
+### How to run
+
+To run the program:
+
+1. Run generate_challenge.py (This can take a few seconds)
+2. Open gm_guide.html in browser
+
 ### Requirements
 
 - **Python**: 3.12+ (Tested with 3.13.5)

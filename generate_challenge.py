@@ -181,7 +181,95 @@ def generate_challenge_1(df):
         'Embarked': fake_template.get('Embarked', 'S'),
         '_is_fake': True
     }
-    
+
+
+def _pclass_to_text(pclass: int) -> str:
+    mapping = {1: "first-class", 2: "second-class", 3: "third-class"}
+    try:
+        return mapping.get(int(pclass), "third-class")
+    except Exception:
+        return "third-class"
+
+
+def _last_name(full_name: str) -> str:
+    try:
+        return str(full_name).split(',')[0].strip()
+    except Exception:
+        return str(full_name)
+
+
+def generate_challenge_2(df):
+    """Challenge 2: Echoes of the Passengers (Timeline Synchronization)"""
+    ports = ['S', 'C', 'Q']
+    port_groups = {p: df[df['Embarked'] == p] for p in ports}
+
+    def pick_by_port(p):
+        g = port_groups.get(p)
+        if g is not None and len(g) > 0:
+            return g.sample(1).iloc[0]
+        return df.sample(1).iloc[0]
+
+    s_row = pick_by_port('S')
+    c_row = pick_by_port('C')
+    q_row = pick_by_port('Q')
+
+    def boarding_text(row, port_label):
+        name = _last_name(row.get('Name', 'Unknown'))
+        pclass_txt = _pclass_to_text(row.get('Pclass', 3))
+        return (
+            f"{name} boards at {port_label} ({row.get('Embarked','?')}); "
+            f"a {pclass_txt} ticket rustles in hand."
+        )
+
+    echo_board_s = { 'stage': 'boarding', 'port': 'S', 'text': boarding_text(s_row, 'Southampton') }
+    echo_board_c = { 'stage': 'boarding', 'port': 'C', 'text': boarding_text(c_row, 'Cherbourg') }
+    echo_board_q = { 'stage': 'boarding', 'port': 'Q', 'text': boarding_text(q_row, 'Queenstown') }
+
+    post_row = df.sample(1).iloc[0]
+    post_text = (
+        f"Lanterns sway as the deck tilts; {_last_name(post_row.get('Name','A passenger'))} "
+        f"steadies a stranger amid rising alarm."
+    )
+    echo_post = { 'stage': 'post_impact', 'port': None, 'text': post_text }
+
+    esc_row = df.sample(1).iloc[0]
+    esc_text = (
+        f"In the final chaos, {_last_name(esc_row.get('Name','A passenger'))} "
+        f"finds space in a lifeboat and slips into the night."
+    )
+    echo_escape = { 'stage': 'escape', 'port': None, 'text': esc_text }
+
+    echoes = [echo_board_s, echo_board_c, echo_board_q, echo_post, echo_escape]
+    random.shuffle(echoes)
+    letters = ['A', 'B', 'C', 'D', 'E']
+    for i, e in enumerate(echoes):
+        e['id'] = letters[i]
+
+    stage_rank = {'boarding': 1, 'post_impact': 2, 'escape': 3}
+    port_rank = {'S': 1, 'C': 2, 'Q': 3, None: 0}
+    sorted_true = sorted(echoes, key=lambda e: (stage_rank.get(e['stage'], 99), port_rank.get(e.get('port'), 0)))
+    solution_letters = [e['id'] for e in sorted_true]
+
+    known_facts = [
+        "Boarding order by port: Southampton (S) → Cherbourg (C) → Queenstown (Q).",
+        "Phrases like 'boarded at' are before the iceberg impact.",
+        "Words like 'tilted', 'helping', or 'chaos' are after impact but still onboard.",
+        "Mentions of 'escaped' or 'lifeboat' happen last."
+    ]
+
+    return {
+        "title": "Challenge 2: Echoes of the Passengers (Timeline Synchronization)",
+        "story_intro": "Time ripples carry brief echoes of five travelers aboard the Titanic. Align their moments to restore the timeline.",
+        "echoes": [{"letter": e['id'], "text": e['text']} for e in echoes],
+        "known_facts": known_facts,
+        "task": "Arrange the echoes (A–E) in correct chronological order.",
+        "solution": ", ".join(solution_letters),
+        "explanation": (
+            "Boarding echoes come first and follow port order S → C → Q; "
+            "post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last."
+        )
+    }
+
     fake_card = format_passenger(fake_card_data)
     fake_card["_is_fake"] = True  # Mark as fake in JSON (GM only)
     challenge_cards.append(fake_card)
@@ -201,119 +289,133 @@ def generate_challenge_1(df):
     }
 
 
-def _pclass_to_text(pclass: int) -> str:
-    mapping = {1: "first-class", 2: "second-class", 3: "third-class"}
-    return mapping.get(int(pclass) if pd.notna(pclass) else 3, "third-class")
-
-
-def _last_name(full_name: str) -> str:
-    try:
-        return str(full_name).split(',')[0].strip()
-    except Exception:
-        return str(full_name)
-
-
-def generate_challenge_2(df):
-    """Challenge 2: Echoes of the Passengers (Timeline Synchronization)
-
-    Generates 5 one-line narrative echoes (A–E) that players must order
-    chronologically using known facts:
-    - Boarding order by port: S → C → Q
-    - "boarded at" is pre-impact
-    - "tilted/helping/chaos" is post-impact (onboard)
-    - "escaped/lifeboat" is final
+def generate_challenge_3(df):
     """
+    Generate Challenge 3 - Titanic Lifeboat Code
+    Produces structured data consistent with Challenge 1 format.
+    """
+    NUM_PASSENGERS = 4
+    MIN_SURVIVORS = 1
+    MIN_DECEASED = 1
 
-    # Ensure we have embarkation groups
-    ports = ['S', 'C', 'Q']
-    port_groups = {p: df[df['Embarked'] == p] for p in ports}
+    # randomly select passengers ensuring at least one survivor and one deceased
+    survivors = df[df['Survived'] == 1]
+    deceased = df[df['Survived'] == 0]
 
-    def pick_by_port(p):
-        g = port_groups.get(p)
-        if g is not None and len(g) > 0:
-            return g.sample(1).iloc[0]
-        # Fallback to any passenger if port not found
-        return df.sample(1).iloc[0]
+    num_survivors = random.randint(MIN_SURVIVORS, NUM_PASSENGERS - MIN_DECEASED)
+    num_deceased = NUM_PASSENGERS - num_survivors
 
-    # Three boarding echoes: S, then C, then Q (true order). We'll shuffle when presenting.
-    s_row = pick_by_port('S')
-    c_row = pick_by_port('C')
-    q_row = pick_by_port('Q')
+    selected_survivors = survivors.sample(n=num_survivors, replace=False)
+    selected_deceased = deceased.sample(n=num_deceased, replace=False)
 
-    def boarding_text(row, port_label):
-        name = _last_name(row.get('Name', 'Unknown'))
-        pclass_txt = _pclass_to_text(row.get('Pclass', 3))
-        return f"{name} boards at {port_label} ({row.get('Embarked','?')}); a {pclass_txt} ticket rustles in hand."
+    challenge_passengers_df = pd.concat([selected_survivors, selected_deceased]).sample(frac=1).reset_index(drop=True)
 
-    echo_board_s = {
-        'stage': 'boarding',
-        'port': 'S',
-        'text': boarding_text(s_row, 'Southampton')
-    }
-    echo_board_c = {
-        'stage': 'boarding',
-        'port': 'C',
-        'text': boarding_text(c_row, 'Cherbourg')
-    }
-    echo_board_q = {
-        'stage': 'boarding',
-        'port': 'Q',
-        'text': boarding_text(q_row, 'Queenstown')
-    }
+    passengers_list = []
+    correct_code = ""
+    for i, row in challenge_passengers_df.iterrows():
+        correct_code += str(row['Survived'])
 
-    # One post-impact onboard echo
-    post_row = df.sample(1).iloc[0]
-    post_text = f"Lanterns sway as the deck tilts; {_last_name(post_row.get('Name','A passenger'))} steadies a stranger amid rising alarm."
-    echo_post = {
-        'stage': 'post_impact',
-        'port': None,
-        'text': post_text
-    }
+        age_value = row['Age']
+        if pd.isna(age_value):
+            age_value = random.randint(20, 50)
 
-    # One escape echo (final stage)
-    esc_row = df.sample(1).iloc[0]
-    esc_text = f"In the final chaos, {_last_name(esc_row.get('Name','A passenger'))} finds space in a lifeboat and slips into the night."
-    echo_escape = {
-        'stage': 'escape',
-        'port': None,
-        'text': esc_text
-    }
+        fare_value = row['Fare']
+        if pd.isna(fare_value):
+            fare_value = 30 + (3 - row['Pclass']) * 20
 
-    echoes = [echo_board_s, echo_board_c, echo_board_q, echo_post, echo_escape]
+        passengers_list.append({
+            "Name": row['Name'] if 'Name' in row and pd.notna(row['Name']) else f"Passenger {i+1}",
+            "Pclass": int(row['Pclass']),
+            "Age": round(age_value),
+            "Sex": row['Sex'],
+            "Fare": round(fare_value, 2),
+            "Embarked": row['Embarked'] if pd.notna(row['Embarked']) else 'S'
+        })
 
-    # Assign letters A–E in a random display order
-    random.shuffle(echoes)
-    letters = ['A', 'B', 'C', 'D', 'E']
-    for i, e in enumerate(echoes):
-        e['id'] = letters[i]
 
-    # Determine the true chronological order for the solution
-    stage_rank = {'boarding': 1, 'post_impact': 2, 'escape': 3}
-    port_rank = {'S': 1, 'C': 2, 'Q': 3, None: 0}
-    sorted_true = sorted(echoes, key=lambda e: (stage_rank.get(e['stage'], 99), port_rank.get(e.get('port'), 0)))
-    solution_letters = [e['id'] for e in sorted_true]
-
-    # Known facts presented to players
-    known_facts = [
-        "Boarding order by port: Southampton (S) → Cherbourg (C) → Queenstown (Q).",
-        "Phrases like 'boarded at' are before the iceberg impact.",
-        "Words like 'tilted', 'helping', or 'chaos' are after impact but still onboard.",
-        "Mentions of 'escaped' or 'lifeboat' happen last."
-    ]
-
-    # Build final structure
-    return {
-        "title": "Challenge 2: Echoes of the Passengers (Timeline Synchronization)",
-        "story_intro": "Time ripples carry brief echoes of five travelers aboard the Titanic. Align their moments to restore the timeline.",
-        "echoes": [{"letter": e['id'], "text": e['text']} for e in echoes],
-        "known_facts": known_facts,
-        "task": "Arrange the echoes (A–E) in correct chronological order.",
-        "solution": ", ".join(solution_letters),
-        "explanation": (
-            "Boarding echoes come first and follow port order S → C → Q; "
-            "post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last."
+    # generate static clues and charts
+    try:
+        sex_pclass_survival = (
+            df.groupby(['Sex', 'Pclass'])['Survived']
+            .mean().unstack().fillna(0)
         )
+
+        age_bins = [0, 10, 20, 40, 60, 100]
+        age_labels = ['<10', '10-20', '20-40', '40-60', '60+']
+        df['AgeGroup'] = pd.cut(df['Age'], bins=age_bins, labels=age_labels, right=False)
+        age_survival = df.groupby('AgeGroup')['Survived'].mean()
+
+        sex_pclass_texts = [
+            f"{sex.capitalize()} (Class {pclass}): {rate*100:.1f}%"
+            for sex in sex_pclass_survival.index
+            for pclass, rate in sex_pclass_survival.loc[sex].items()
+        ]
+        age_texts = [f"{age}: {rate*100:.1f}%" for age, rate in age_survival.items()]
+
+        static_clues = [
+            {"heading": "Survival Probability: Sex vs. Pclass", "content": "; ".join(sex_pclass_texts)},
+            {"heading": "Survival Probability: Age Groups", "content": "; ".join(age_texts)}
+        ]
+
+        # 生成图表generate charts
+        hint_dir = "hint"
+        os.makedirs(hint_dir, exist_ok=True)
+
+        # 性别+舱位生还率热图sex + pclass survival heatmap
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(
+            sex_pclass_survival,
+            annot=True,
+            fmt=".2f",
+            cmap="YlGnBu",
+            cbar_kws={'label': 'Survival Rate'}
+        )
+        plt.title("Survival Rate by Sex and Pclass")
+        plt.tight_layout()
+        chart1_path = os.path.join(hint_dir, "challenge_3_sex_pclass.png")
+        plt.savefig(chart1_path, dpi=300, bbox_inches="tight")
+        plt.close()
+
+        # 年龄段生还率柱状图age group survival bar chart
+        plt.figure(figsize=(8, 6))
+        sns.barplot(x=age_survival.index, y=age_survival.values, palette="coolwarm")
+        plt.title("Survival Rate by Age Group")
+        plt.xlabel("Age Group")
+        plt.ylabel("Survival Rate")
+        plt.tight_layout()
+        chart2_path = os.path.join(hint_dir, "challenge_3_age_group.png")
+        plt.savefig(chart2_path, dpi=300, bbox_inches="tight")
+        plt.close()
+
+        hint_charts = [chart1_path, chart2_path]
+
+    except Exception as e:
+        print(f"⚠️ Error generating clues or charts: {e}")
+        static_clues = []
+        hint_charts = []
+
+    # generate return data
+    challenge_data = {
+        "id": 3,
+        "title": "Decipher the Lifeboat Code",
+        "story": "The lifeboat lock requires a 4-digit code based on passengers' survival predictions.",
+        "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
+        "passengers": passengers_list,
+        "static_clues": static_clues,
+        "hint_chart": hint_charts,   # new: for HTML chart display
+        "correct_code": correct_code
     }
+
+    # save JSON file
+    try:
+        os.makedirs("src", exist_ok=True)
+        with open("src/challenge_3_generated.json", "w", encoding="utf-8") as f:
+            json.dump(challenge_data, f, ensure_ascii=False, indent=4)
+        print("Challenge 3 JSON saved to src/challenge_3_generated.json")
+    except Exception as e:
+        print(f"Could not save Challenge 3 JSON: {e}")
+
+    return challenge_data
 
 
 def generate_game_data():
@@ -324,18 +426,22 @@ def generate_game_data():
     print("Generating challenge 1...")
     # Pass the full DataFrame so it can generate the boxplot
     challenge_1 = generate_challenge_1(df)
+    
     print("Generating challenge 2...")
     challenge_2 = generate_challenge_2(df)
+    print("Generating challenge 3...")
+    challenge_3 = generate_challenge_3(df)
 
     game_data = {
         "story_background": {
             "theme": "The Temporal Rift on the Titanic",
             "role": "You are a team of time travelers.",
-            "goal": "Before the ship sinks, find 4 missing 'temporal coordinate fragments'."
+            "goal": "Before the ship sinks, find 5 missing 'temporal coordinate fragments'."
         },
         "challenges": [
             challenge_1,
             challenge_2,
+            challenge_3,
         ]
     }
     
