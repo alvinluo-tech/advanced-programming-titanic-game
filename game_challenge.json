@@ -11,58 +11,58 @@
             "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
             "passenger_cards": [
                 {
-                    "name": "Meanwell, Miss. (Marion Ogden)",
+                    "name": "Wiklund, Mr. Jakob Alfred",
                     "Pclass": 3,
-                    "Age": NaN,
-                    "Sex": "female",
-                    "Fare": 8.05,
+                    "Age": 18.0,
+                    "Sex": "male",
+                    "Fare": 6.5,
                     "Embarked": "S"
                 },
                 {
-                    "name": "Smiljanic, Mr. Mile",
+                    "name": "Danbom, Mr. Ernst Gilbert",
                     "Pclass": 3,
-                    "Age": NaN,
+                    "Age": 34.0,
                     "Sex": "male",
-                    "Fare": 92.42,
-                    "Embarked": "S",
+                    "Fare": 14.4,
+                    "Embarked": "S"
+                },
+                {
+                    "name": "Jonsson, Mr. Carl",
+                    "Pclass": 3,
+                    "Age": 32.0,
+                    "Sex": "male",
+                    "Fare": 7.85,
+                    "Embarked": "S"
+                },
+                {
+                    "name": "Natsch, Mr. Charles H",
+                    "Pclass": 1,
+                    "Age": 37.0,
+                    "Sex": "male",
+                    "Fare": 8.07,
+                    "Embarked": "C",
                     "_is_fake": true
                 },
                 {
-                    "name": "Penasco y Castellana, Mr. Victor de Satode",
-                    "Pclass": 1,
-                    "Age": 18.0,
-                    "Sex": "male",
-                    "Fare": 108.9,
-                    "Embarked": "C"
-                },
-                {
-                    "name": "Cardeza, Mr. Thomas Drake Martinez",
-                    "Pclass": 1,
-                    "Age": 36.0,
-                    "Sex": "male",
-                    "Fare": 512.33,
-                    "Embarked": "C"
-                },
-                {
-                    "name": "Jussila, Miss. Katriina",
+                    "name": "Svensson, Mr. Olof",
                     "Pclass": 3,
-                    "Age": 20.0,
-                    "Sex": "female",
-                    "Fare": 9.82,
+                    "Age": 24.0,
+                    "Sex": "male",
+                    "Fare": 7.8,
                     "Embarked": "S"
                 },
                 {
-                    "name": "Carter, Master. William Thornton II",
+                    "name": "Van der hoef, Mr. Wyckoff",
                     "Pclass": 1,
-                    "Age": 11.0,
+                    "Age": 61.0,
                     "Sex": "male",
-                    "Fare": 120.0,
+                    "Fare": 33.5,
                     "Embarked": "S"
                 }
             ],
             "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
             "hint_chart": "hint\\challenge_1_boxplot.png",
-            "answer": "The forged card: 3rd class (Pclass=3) but paying £92.42, which is much higher than typical 3rd class fares (£4.01-69.55)."
+            "answer": "The forged card: 1st class (Pclass=1) but paying £8.07, which is much lower than typical 1st class fares (£5.00-512.33)."
         },
         {
             "title": "Challenge 2: Echoes of the Passengers (Timeline Synchronization)",
@@ -70,23 +70,23 @@
             "echoes": [
                 {
                     "letter": "A",
-                    "text": "In the final chaos, Saad finds space in a lifeboat and slips into the night."
+                    "text": "In the final chaos, Doling finds space in a lifeboat and slips into the night."
                 },
                 {
                     "letter": "B",
-                    "text": "Lanterns sway as the deck tilts; Haas steadies a stranger amid rising alarm."
-                },
-                {
-                    "letter": "C",
-                    "text": "Yousseff boards at Cherbourg (C); a third-class ticket rustles in hand."
-                },
-                {
-                    "letter": "D",
                     "text": "O'Leary boards at Queenstown (Q); a third-class ticket rustles in hand."
                 },
                 {
+                    "letter": "C",
+                    "text": "Lanterns sway as the deck tilts; Baxter steadies a stranger amid rising alarm."
+                },
+                {
+                    "letter": "D",
+                    "text": "Markoff boards at Cherbourg (C); a third-class ticket rustles in hand."
+                },
+                {
                     "letter": "E",
-                    "text": "Givard boards at Southampton (S); a second-class ticket rustles in hand."
+                    "text": "Lovell boards at Southampton (S); a third-class ticket rustles in hand."
                 }
             ],
             "known_facts": [
@@ -96,7 +96,7 @@
                 "Mentions of 'escaped' or 'lifeboat' happen last."
             ],
             "task": "Arrange the echoes (A–E) in correct chronological order.",
-            "solution": "E, C, D, B, A",
+            "solution": "E, D, B, C, A",
             "explanation": "Boarding echoes come first and follow port order S → C → Q; post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last."
         }
     ]
