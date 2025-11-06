@@ -135,8 +135,7 @@ To add more challenges:
 To run the program:
 
 1. Run generate_challenge.py (This can take a few seconds)
-2. Run convert_to_html.py (This can take a few seconds)
-3. Open gm_guide.html in browser
+2. Open gm_guide.html in browser
 
 ### Requirements
 
