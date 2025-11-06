@@ -16,64 +16,64 @@
 
 **Card 1**
 ```
-name: Holverson, Mrs. Alexander Oskar (Mary Aline Towner)
-Pclass: 1
-Age: 35.0
+name: West, Mrs. Edwy Arthur (Ada Mary Worth)
+Pclass: 2
+Age: 33.0
 Sex: female
-Fare: 52.0
+Fare: 27.75
 Embarked: S
 ```
 **Card 2**
 ```
-name: Duff Gordon, Lady. (Lucille Christiana Sutherland) ("Mrs Morgan")
-Pclass: 1
-Age: 48.0
-Sex: female
-Fare: 39.6
-Embarked: C
+name: Charters, Mr. David
+Pclass: 3
+Age: 21.0
+Sex: male
+Fare: 7.73
+Embarked: Q
 ```
 **Card 3**
 ```
-name: Elsbury, Mr. William James
+name: Asplund, Miss. Lillian Gertrud
 Pclass: 3
-Age: 47.0
-Sex: male
-Fare: 7.25
+Age: 5.0
+Sex: female
+Fare: 31.39
 Embarked: S
 ```
 **Card 4**
 ```
-name: Andersson, Miss. Erna Alexandra
+name: Rice, Master. Eugene
 Pclass: 3
-Age: 17.0
-Sex: female
-Fare: 7.92
-Embarked: S
+Age: 2.0
+Sex: male
+Fare: 29.12
+Embarked: Q
 ```
 **Card 5**
 ```
-name: Sage, Mr. Douglas Bullen
-Pclass: 1
+name: Maisner, Mr. Simon
+Pclass: 3
 Age: nan
 Sex: male
-Fare: 2.87
+Fare: 8.05
 Embarked: S
 ```
 **Card 6**
 ```
-name: Hampe, Mr. Leon
-Pclass: 3
-Age: 20.0
-Sex: male
-Fare: 9.5
-Embarked: S
+name: Ryerson, Miss. Emily Borie
+Pclass: 2
+Age: 18.0
+Sex: female
+Fare: 100.76
+Embarked: C
 ```
 
 ---
 ### GM Guide
 
 > **Hint:** GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.
-> **Answer:** [[REVEAL_ANSWER]]The forged card: 1st class (Pclass=1) but paying £2.87, which is much lower than typical 1st class fares (£5.00-512.33). **(In this game, this card is Card 5)**[[END_REVEAL]]
+> **Answer:** [[REVEAL_ANSWER]]The forged card: 2nd class (Pclass=2) but paying £100.76, which is much higher than typical 2nd class fares (£10.50-73.50). **(In this game, this card is Card 6)**[[END_REVEAL]]
 > **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.
 
 ---
@@ -91,38 +91,38 @@ Embarked: S
 
 **Card 1**
 ```
-Name: Palsson, Mrs. Nils (Alma Cornelia Berglund)
-Pclass: 3
-Age: 29
-Sex: female
-Fare: 21.07
+Name: Fox, Mr. Stanley Hubert
+Pclass: 2
+Age: 36
+Sex: male
+Fare: 13.0
 Embarked: S
 ```
 **Card 2**
 ```
-Name: Brown, Miss. Amelia "Mildred"
-Pclass: 2
-Age: 24
+Name: Goldsmith, Mrs. Frank John (Emily Alice Brown)
+Pclass: 3
+Age: 31
 Sex: female
-Fare: 13.0
+Fare: 20.52
 Embarked: S
 ```
 **Card 3**
 ```
-Name: Reuchlin, Jonkheer. John George
+Name: Warren, Mrs. Frank Manley (Anna Sophia Atkinson)
 Pclass: 1
-Age: 38
-Sex: male
-Fare: 0.0
-Embarked: S
+Age: 60
+Sex: female
+Fare: 75.25
+Embarked: C
 ```
 **Card 4**
 ```
-Name: Laleff, Mr. Kristo
-Pclass: 3
-Age: 28
-Sex: male
-Fare: 7.9
+Name: Nye, Mrs. (Elizabeth Ramell)
+Pclass: 2
+Age: 29
+Sex: female
+Fare: 10.5
 Embarked: S
 ```
 
@@ -130,7 +130,7 @@ Embarked: S
 ### GM Guide
 
 > **Hint:** Use the survival charts above to infer the 4-digit lifeboat code.
-> **Answer:** [[REVEAL_ANSWER]]0100[[END_REVEAL]]
+> **Answer:** [[REVEAL_ANSWER]]0111[[END_REVEAL]]
 > **Obtain:** **Temporal Coordinate Fragment 3** hidden within the lifeboat control panel.
 
 ---
@@ -163,12 +163,12 @@ Yours Sincerely,
 A Guest of the Deep
 ```
 **Encrypted Letter**```
-c.p.x. mkmuhkr  
-pucrshk qkctntxx xtcfkrt  
-ulckn 12, 1912
-pi xtrctm unkux kx pc vuptx pscuh
+c.s.r. yfytbfd  
+stcdibf lfckhkrr rkcufdk  
+tecfh 12, 1912
+sq rkdcky thftr fr sc jtskr sictb
 
-u aytxm sb met dttl
+t mxkry ia yvk okke
 ```
 ### Possible suspects 
 

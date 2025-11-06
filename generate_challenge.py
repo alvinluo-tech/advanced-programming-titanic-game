@@ -167,37 +167,68 @@ def generate_challenge_1(df):
     fake_template = valid_passengers.sample(1).iloc[0].copy()
     fake_name = fake_template['Name']
     
-    # Generate mismatched fare based on class
-    if fake_pclass == 3:
-        # 3rd class with unusually high fare
-        fake_fare = round(random.uniform(
-            fare_stats[1]['median'] * 0.8,  # Higher than 1st class median
-            fare_stats[1]['max'] * 1.2
-        ), 2)
-        expected_fare_range = f"£{fare_stats[3]['min']:.2f}-{fare_stats[3]['max']:.2f}"
-        actual_fare_range = f"£{fake_fare:.2f}"
-        anomaly_description = f"3rd class (Pclass={fake_pclass}) but paying {actual_fare_range}, which is much higher than typical 3rd class fares ({expected_fare_range})"
-    elif fake_pclass == 2:
-        # 2nd class with unusually high or low fare
-        if random.random() > 0.5:
-            # Too high for 2nd class
+    # Generate mismatched fare based on class and direction (high or low)
+    is_too_high = random.choice([True, False])  # Randomly choose high or low
+    
+    if fake_pclass == 1:
+        if is_too_high:
+            # 1st class with unusually HIGH fare (above maximum)
             fake_fare = round(random.uniform(
-                fare_stats[1]['median'] * 0.9,
-                fare_stats[1]['max'] * 1.1
+                fare_stats[1]['max'] + 10,      # £512.33 + 10 = £522.33
+                fare_stats[1]['max'] * 1.3      # Up to £666
             ), 2)
-            expected_range = f"£{fare_stats[2]['min']:.2f}-{fare_stats[2]['max']:.2f}"
+            direction = "higher"
         else:
-            # Too low for 2nd class
-            fake_fare = round(random.uniform(1, fare_stats[3]['min'] * 0.5), 2)
-            expected_range = f"£{fare_stats[2]['min']:.2f}-{fare_stats[2]['max']:.2f}"
-        actual_range = f"£{fake_fare:.2f}"
-        anomaly_description = f"2nd class (Pclass={fake_pclass}) but paying {actual_range}, which doesn't match typical 2nd class fares ({expected_range})"
-    else:  # Pclass == 1
-        # 1st class with unusually low fare
-        fake_fare = round(random.uniform(1, fare_stats[2]['median'] * 0.8), 2)
+            # 1st class with unusually LOW fare (below minimum)
+            fake_fare = round(random.uniform(
+                0.5,                            # Very low
+                fare_stats[1]['min'] - 0.5      # £5.00 - 0.5 = £4.50
+            ), 2)
+            direction = "lower"
+        
         expected_range = f"£{fare_stats[1]['min']:.2f}-{fare_stats[1]['max']:.2f}"
         actual_range = f"£{fake_fare:.2f}"
-        anomaly_description = f"1st class (Pclass={fake_pclass}) but paying {actual_range}, which is much lower than typical 1st class fares ({expected_range})"
+        anomaly_description = f"1st class (Pclass={fake_pclass}) but paying {actual_range}, which is much {direction} than typical 1st class fares ({expected_range})"
+    
+    elif fake_pclass == 2:
+        if is_too_high:
+            # 2nd class with unusually HIGH fare (above maximum)
+            fake_fare = round(random.uniform(
+                fare_stats[2]['max'] + 1,       # £73.50 + 1 = £74.50
+                fare_stats[2]['max'] * 1.5      # Up to £110
+            ), 2)
+            direction = "higher"
+        else:
+            # 2nd class with unusually LOW fare (below minimum)
+            fake_fare = round(random.uniform(
+                0.5,                            # Very low
+                fare_stats[2]['min'] - 0.5      # £10.50 - 0.5 = £10.00
+            ), 2)
+            direction = "lower"
+        
+        expected_range = f"£{fare_stats[2]['min']:.2f}-{fare_stats[2]['max']:.2f}"
+        actual_range = f"£{fake_fare:.2f}"
+        anomaly_description = f"2nd class (Pclass={fake_pclass}) but paying {actual_range}, which is much {direction} than typical 2nd class fares ({expected_range})"
+    
+    else:  # fake_pclass == 3
+        if is_too_high:
+            # 3rd class with unusually HIGH fare (above maximum)
+            fake_fare = round(random.uniform(
+                fare_stats[3]['max'] + 1,       # £69.55 + 1 = £70.55
+                fare_stats[3]['max'] * 1.3      # Up to £90.42
+            ), 2)
+            direction = "higher"
+        else:
+            # 3rd class with unusually LOW fare (below minimum)
+            fake_fare = round(random.uniform(
+                0.5,                            # Very low
+                fare_stats[3]['min'] - 0.5      # £4.01 - 0.5 = £3.51
+            ), 2)
+            direction = "lower"
+        
+        expected_range = f"£{fare_stats[3]['min']:.2f}-{fare_stats[3]['max']:.2f}"
+        actual_range = f"£{fake_fare:.2f}"
+        anomaly_description = f"3rd class (Pclass={fake_pclass}) but paying {actual_range}, which is much {direction} than typical 3rd class fares ({expected_range})"
     
     # Create fake card
     fake_card_data = {
@@ -219,6 +250,7 @@ def generate_challenge_1(df):
     chart_path = generate_boxplot(df, 'challenge_1')
     
     return {
+        "id": 1,
         "title": "Challenge 1: Purser's Office (Find the Anomaly)",
         "story": "You've just boarded and been caught as stowaways. On the desk is a stack of passenger registration cards. You must identify the 'forged' card among them.",
         "task": "Out of the following 6 passenger cards, which one is statistically impossible?",

@@ -641,7 +641,7 @@ def main():
 
     # Save the JSON file for reference
     save_game_data(game_data)
-    
+
     # Start building Markdown
     md_output = f"# {game_data['story_background']['theme']}: GM Guide\n\n"
     md_output += f"**Player Role:** {game_data['story_background']['role']}\n"
