@@ -5,36 +5,36 @@
     "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
     "passengers": [
         {
-            "Name": "Reeves, Mr. David",
+            "Name": "Banfield, Mr. Frederick James",
             "Pclass": 2,
-            "Age": 36,
+            "Age": 28,
             "Sex": "male",
             "Fare": 10.5,
             "Embarked": "S"
         },
         {
-            "Name": "Foo, Mr. Choong",
-            "Pclass": 3,
-            "Age": 50,
+            "Name": "Davies, Mr. Charles Henry",
+            "Pclass": 2,
+            "Age": 18,
             "Sex": "male",
-            "Fare": 56.5,
+            "Fare": 73.5,
             "Embarked": "S"
         },
         {
-            "Name": "Zabour, Miss. Thamine",
-            "Pclass": 3,
-            "Age": 22,
+            "Name": "Carter, Mrs. William Ernest (Lucile Polk)",
+            "Pclass": 1,
+            "Age": 36,
             "Sex": "female",
-            "Fare": 14.45,
+            "Fare": 120.0,
+            "Embarked": "S"
+        },
+        {
+            "Name": "Yousif, Mr. Wazli",
+            "Pclass": 3,
+            "Age": 44,
+            "Sex": "male",
+            "Fare": 7.22,
             "Embarked": "C"
-        },
-        {
-            "Name": "Lobb, Mrs. William Arthur (Cordelia K Stanlick)",
-            "Pclass": 3,
-            "Age": 26,
-            "Sex": "female",
-            "Fare": 16.1,
-            "Embarked": "S"
         }
     ],
     "static_clues": [
@@ -48,8 +48,8 @@
         }
     ],
     "hint_chart": [
-        "hint\\challenge_3_sex_pclass.png",
-        "hint\\challenge_3_age_group.png"
+        "hint/challenge_3_sex_pclass.png",
+        "hint/challenge_3_age_group.png"
     ],
-    "correct_code": "0100"
+    "correct_code": "0010"
 }

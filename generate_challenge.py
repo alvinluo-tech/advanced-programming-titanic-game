@@ -118,6 +118,34 @@ def get_fare_statistics_by_class(df):
             }
     return stats
 
+# Generate a key for the substitution cipher
+def generate_key():
+    letters = list("abcdefhijklmnopqrstuvwxyz")
+    random.shuffle(letters)
+
+    cipher_key = ''.join(letters)
+    print(cipher_key)
+    return cipher_key
+
+# Encryption algorithm for monoalphabetic substitution cipher
+# Key is a string of 26 characters
+def encrypt(plain_text, key):
+    cipher_text = ""
+    plain_text = plain_text.lower()
+    for char in plain_text:
+        if ord(char) >= ord('a') and ord(char) <= ord('z'):
+            # Get index of plain text within alphabet (start from 0)
+            pos = ord(char) - ord('a')
+            cipher_text += key[pos]
+        else:
+            cipher_text += char
+        
+    return cipher_text
+
+# Decryption algorithm for monoalphabetic substitution cipher
+def decrypt(cipher_text, key):
+    # Have to invert key to decrypt
+    pass
 
 def generate_challenge_1(df):
     """Generate Challenge 1: Find the Anomaly"""
@@ -181,6 +209,24 @@ def generate_challenge_1(df):
         'Embarked': fake_template.get('Embarked', 'S'),
         '_is_fake': True
     }
+    
+    fake_card = format_passenger(fake_card_data)
+    fake_card["_is_fake"] = True  # Mark as fake in JSON (GM only)
+    challenge_cards.append(fake_card)
+    random.shuffle(challenge_cards)
+    
+    # Generate boxplot for the hint
+    chart_path = generate_boxplot(df, 'challenge_1')
+    
+    return {
+        "title": "Challenge 1: Purser's Office (Find the Anomaly)",
+        "story": "You've just boarded and been caught as stowaways. On the desk is a stack of passenger registration cards. You must identify the 'forged' card among them.",
+        "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
+        "passenger_cards": challenge_cards,
+        "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
+        "hint_chart": chart_path,  # Add chart path
+        "answer": f"The forged card: {anomaly_description}."
+    }
 
 
 def _pclass_to_text(pclass: int) -> str:
@@ -203,10 +249,10 @@ def generate_challenge_2(df):
     ports = ['S', 'C', 'Q']
     port_groups = {p: df[df['Embarked'] == p] for p in ports}
 
-    def pick_by_port(p):
-        g = port_groups.get(p)
-        if g is not None and len(g) > 0:
-            return g.sample(1).iloc[0]
+    def pick_by_port(port_code):
+        group = port_groups.get(port_code)
+        if group is not None and len(group) > 0:
+            return group.sample(1).iloc[0]
         return df.sample(1).iloc[0]
 
     s_row = pick_by_port('S')
@@ -217,38 +263,41 @@ def generate_challenge_2(df):
         name = _last_name(row.get('Name', 'Unknown'))
         pclass_txt = _pclass_to_text(row.get('Pclass', 3))
         return (
-            f"{name} boards at {port_label} ({row.get('Embarked','?')}); "
+            f"{name} boards at {port_label} ({row.get('Embarked', '?')}); "
             f"a {pclass_txt} ticket rustles in hand."
         )
 
-    echo_board_s = { 'stage': 'boarding', 'port': 'S', 'text': boarding_text(s_row, 'Southampton') }
-    echo_board_c = { 'stage': 'boarding', 'port': 'C', 'text': boarding_text(c_row, 'Cherbourg') }
-    echo_board_q = { 'stage': 'boarding', 'port': 'Q', 'text': boarding_text(q_row, 'Queenstown') }
+    echo_board_s = {'stage': 'boarding', 'port': 'S', 'text': boarding_text(s_row, 'Southampton')}
+    echo_board_c = {'stage': 'boarding', 'port': 'C', 'text': boarding_text(c_row, 'Cherbourg')}
+    echo_board_q = {'stage': 'boarding', 'port': 'Q', 'text': boarding_text(q_row, 'Queenstown')}
 
     post_row = df.sample(1).iloc[0]
     post_text = (
-        f"Lanterns sway as the deck tilts; {_last_name(post_row.get('Name','A passenger'))} "
+        f"Lanterns sway as the deck tilts; {_last_name(post_row.get('Name', 'A passenger'))} "
         f"steadies a stranger amid rising alarm."
     )
-    echo_post = { 'stage': 'post_impact', 'port': None, 'text': post_text }
+    echo_post = {'stage': 'post_impact', 'port': None, 'text': post_text}
 
     esc_row = df.sample(1).iloc[0]
     esc_text = (
-        f"In the final chaos, {_last_name(esc_row.get('Name','A passenger'))} "
+        f"In the final chaos, {_last_name(esc_row.get('Name', 'A passenger'))} "
         f"finds space in a lifeboat and slips into the night."
     )
-    echo_escape = { 'stage': 'escape', 'port': None, 'text': esc_text }
+    echo_escape = {'stage': 'escape', 'port': None, 'text': esc_text}
 
     echoes = [echo_board_s, echo_board_c, echo_board_q, echo_post, echo_escape]
     random.shuffle(echoes)
     letters = ['A', 'B', 'C', 'D', 'E']
-    for i, e in enumerate(echoes):
-        e['id'] = letters[i]
+    for idx, echo in enumerate(echoes):
+        echo['id'] = letters[idx]
 
     stage_rank = {'boarding': 1, 'post_impact': 2, 'escape': 3}
     port_rank = {'S': 1, 'C': 2, 'Q': 3, None: 0}
-    sorted_true = sorted(echoes, key=lambda e: (stage_rank.get(e['stage'], 99), port_rank.get(e.get('port'), 0)))
-    solution_letters = [e['id'] for e in sorted_true]
+    sorted_true = sorted(
+        echoes,
+        key=lambda e: (stage_rank.get(e['stage'], 99), port_rank.get(e.get('port'), 0))
+    )
+    solution_letters = [echo['id'] for echo in sorted_true]
 
     known_facts = [
         "Boarding order by port: Southampton (S) → Cherbourg (C) → Queenstown (Q).",
@@ -260,7 +309,7 @@ def generate_challenge_2(df):
     return {
         "title": "Challenge 2: Echoes of the Passengers (Timeline Synchronization)",
         "story_intro": "Time ripples carry brief echoes of five travelers aboard the Titanic. Align their moments to restore the timeline.",
-        "echoes": [{"letter": e['id'], "text": e['text']} for e in echoes],
+        "echoes": [{"letter": echo['id'], "text": echo['text']} for echo in echoes],
         "known_facts": known_facts,
         "task": "Arrange the echoes (A–E) in correct chronological order.",
         "solution": ", ".join(solution_letters),
@@ -268,24 +317,6 @@ def generate_challenge_2(df):
             "Boarding echoes come first and follow port order S → C → Q; "
             "post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last."
         )
-    }
-
-    fake_card = format_passenger(fake_card_data)
-    fake_card["_is_fake"] = True  # Mark as fake in JSON (GM only)
-    challenge_cards.append(fake_card)
-    random.shuffle(challenge_cards)
-    
-    # Generate boxplot for the hint
-    chart_path = generate_boxplot(df, 'challenge_1')
-    
-    return {
-        "title": "Challenge 1: Purser's Office (Find the Anomaly)",
-        "story": "You've just boarded and been caught as stowaways. On the desk is a stack of passenger registration cards. You must identify the 'forged' card among them.",
-        "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
-        "passenger_cards": challenge_cards,
-        "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
-        "hint_chart": chart_path,  # Add chart path
-        "answer": f"The forged card: {anomaly_description}."
     }
 
 
@@ -417,6 +448,56 @@ def generate_challenge_3(df):
 
     return challenge_data
 
+def generate_challenge_4(df):
+    """Generate challenge 4 - Letters from a Stowaway"""
+    stowaway = df.sample(1)
+
+    cipher_key = generate_key()
+
+    # Intercepted letter is not to be encrypted as it is to be used to help decrypt the other letter
+    intercepted_letter = """   
+R.M.S. TITANIC  
+MARCONI WIRELESS SERVICE  
+APRIL 12, 1912
+To Mr. David Smith
+Good afternoon, I have snuck aboard this mighty vessel. 
+Now time to implement my darstardly plan!
+Yours Sincerely,
+
+A Guest of the Deep"""
+    # Plaintext letter should not contain numbers.
+    plaintext_letter = """
+R.M.S. TITANIC  
+MARCONI WIRELESS SERVICE  
+APRIL 12, 1912
+My secret alias is Mr James Moran
+
+A Guest of the Deep"""
+
+    story_text = """
+    
+    The Captain has called you and your group to the deck of the ship with an 
+    urgent mission. Telegrams have been intercepted from the ship's Marconi machine
+    and it appears there is a stowaway on board! Unfortunately, the dastardly 
+    stowaway has managed to scramble one of the telegrams using a mysterious code. 
+    The Captain has created a list of 10 suspects. Can you decipher the letter and
+    obtain the identity of the suspect before they get away?!
+    
+    """
+
+    ciphertext_letter = encrypt(plaintext_letter, cipher_key)
+
+    challenge_data = {
+        "id": 4,
+        "title": "Letters from a Stowaway",
+        "story": story_text,
+        "instructions": "Decode the encrypted letter and select the name from the list of suspects.",
+        "intercepted_letter" : intercepted_letter,
+        "ciphertext_letter" : ciphertext_letter
+    }
+
+    return challenge_data
+
 
 def generate_game_data():
     """Generate fresh game data from dataset"""
@@ -429,8 +510,12 @@ def generate_game_data():
     
     print("Generating challenge 2...")
     challenge_2 = generate_challenge_2(df)
+
     print("Generating challenge 3...")
     challenge_3 = generate_challenge_3(df)
+
+    print("Generating challenge 4...")
+    challenge_4 = generate_challenge_4(df)
 
     game_data = {
         "story_background": {
@@ -442,6 +527,7 @@ def generate_game_data():
             challenge_1,
             challenge_2,
             challenge_3,
+            challenge_4
         ]
     }
     
@@ -460,4 +546,3 @@ if __name__ == '__main__':
     game_data = generate_game_data()
     save_game_data(game_data)
     print("\n[SUCCESS] Game data generated successfully!")
-
