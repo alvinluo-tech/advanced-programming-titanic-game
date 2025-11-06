@@ -146,7 +146,27 @@ def format_challenge_3(data):
 
     return md
 
+def format_challenge_4(data):
+    """Format Challenge 4 (Letters from a Stowaway) to markdown"""
+    md = f"## {data['title']}\n\n"
+    md += f"**Story:** {data.get('story', '')}\n\n"
+    md += f"**Task:** {data.get('instructions', data.get('task', ''))}\n\n"
 
+    md += "### Letters from the Stowaway \n\n"
+
+    md += "**Plaintext Letter**"
+    md += "```"
+    md += f"{data['intercepted_letter']}\n"
+    md += "```\n"
+
+    md += "**Encrypted Letter**"
+    md += "```"
+    md += f"{data['ciphertext_letter']}\n"
+    md += "```\n"
+
+    md += '### Possible suspects \n\n'
+
+    return md
 
 def get_html_template():
     """Return HTML template with embedded CSS"""
@@ -631,7 +651,8 @@ def main():
     # Format function mapping
     format_functions = [
         format_challenge_1,
-        format_challenge_3
+        format_challenge_3,
+        format_challenge_4
     ]
     print("Converting challenges to Markdown...")
     for i, challenge_data in enumerate(game_data['challenges']):

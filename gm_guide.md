@@ -16,56 +16,56 @@
 
 **Card 1**
 ```
-name: Carter, Rev. Ernest Courtenay
-Pclass: 2
-Age: 54.0
-Sex: male
-Fare: 270.29
+name: Holverson, Mrs. Alexander Oskar (Mary Aline Towner)
+Pclass: 1
+Age: 35.0
+Sex: female
+Fare: 52.0
 Embarked: S
 ```
 **Card 2**
 ```
-name: Andersson, Mr. Anders Johan
-Pclass: 3
-Age: 39.0
-Sex: male
-Fare: 31.27
-Embarked: S
+name: Duff Gordon, Lady. (Lucille Christiana Sutherland) ("Mrs Morgan")
+Pclass: 1
+Age: 48.0
+Sex: female
+Fare: 39.6
+Embarked: C
 ```
 **Card 3**
 ```
-name: Tikkanen, Mr. Juho
+name: Elsbury, Mr. William James
 Pclass: 3
-Age: 32.0
+Age: 47.0
 Sex: male
-Fare: 7.92
+Fare: 7.25
 Embarked: S
 ```
 **Card 4**
 ```
-name: Carr, Miss. Helen "Ellen"
+name: Andersson, Miss. Erna Alexandra
 Pclass: 3
-Age: 16.0
+Age: 17.0
 Sex: female
-Fare: 7.75
-Embarked: Q
+Fare: 7.92
+Embarked: S
 ```
 **Card 5**
 ```
-name: Bishop, Mr. Dickinson H
+name: Sage, Mr. Douglas Bullen
 Pclass: 1
-Age: 25.0
+Age: nan
 Sex: male
-Fare: 91.08
-Embarked: C
+Fare: 2.87
+Embarked: S
 ```
 **Card 6**
 ```
-name: Berriman, Mr. William John
-Pclass: 2
-Age: 23.0
+name: Hampe, Mr. Leon
+Pclass: 3
+Age: 20.0
 Sex: male
-Fare: 13.0
+Fare: 9.5
 Embarked: S
 ```
 
@@ -73,7 +73,7 @@ Embarked: S
 ### GM Guide
 
 > **Hint:** GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.
-> **Answer:** [[REVEAL_ANSWER]]The forged card: 2nd class (Pclass=2) but paying £270.29, which doesn't match typical 2nd class fares (£10.50-73.50). **(In this game, this card is Card 1)**[[END_REVEAL]]
+> **Answer:** [[REVEAL_ANSWER]]The forged card: 1st class (Pclass=1) but paying £2.87, which is much lower than typical 1st class fares (£5.00-512.33). **(In this game, this card is Card 5)**[[END_REVEAL]]
 > **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.
 
 ---
@@ -91,38 +91,38 @@ Embarked: S
 
 **Card 1**
 ```
-Name: Reeves, Mr. David
-Pclass: 2
-Age: 36
-Sex: male
-Fare: 10.5
+Name: Palsson, Mrs. Nils (Alma Cornelia Berglund)
+Pclass: 3
+Age: 29
+Sex: female
+Fare: 21.07
 Embarked: S
 ```
 **Card 2**
 ```
-Name: Foo, Mr. Choong
-Pclass: 3
-Age: 50
-Sex: male
-Fare: 56.5
+Name: Brown, Miss. Amelia "Mildred"
+Pclass: 2
+Age: 24
+Sex: female
+Fare: 13.0
 Embarked: S
 ```
 **Card 3**
 ```
-Name: Zabour, Miss. Thamine
-Pclass: 3
-Age: 22
-Sex: female
-Fare: 14.45
-Embarked: C
+Name: Reuchlin, Jonkheer. John George
+Pclass: 1
+Age: 38
+Sex: male
+Fare: 0.0
+Embarked: S
 ```
 **Card 4**
 ```
-Name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
+Name: Laleff, Mr. Kristo
 Pclass: 3
-Age: 26
-Sex: female
-Fare: 16.1
+Age: 28
+Sex: male
+Fare: 7.9
 Embarked: S
 ```
 
@@ -132,6 +132,45 @@ Embarked: S
 > **Hint:** Use the survival charts above to infer the 4-digit lifeboat code.
 > **Answer:** [[REVEAL_ANSWER]]0100[[END_REVEAL]]
 > **Obtain:** **Temporal Coordinate Fragment 3** hidden within the lifeboat control panel.
+
+---
+## Letters from a Stowaway
+
+**Story:** 
+    
+    The Captain has called you and your group to the deck of the ship with an 
+    urgent mission. Telegrams have been intercepted from the ship's Marconi machine
+    and it appears there is a stowaway on board! Unfortunately, the dastardly 
+    stowaway has managed to scramble one of the telegrams using a mysterious code. 
+    The Captain has created a list of 10 suspects. Can you decipher the letter and
+    obtain the identity of the suspect before they get away?!
+    
+    
+
+**Task:** Decode the encrypted letter and select the name from the list of suspects.
+
+### Letters from the Stowaway 
+
+**Plaintext Letter**```   
+R.M.S. TITANIC  
+MARCONI WIRELESS SERVICE  
+APRIL 12, 1912
+To Mr. David Smith
+Good afternoon, I have snuck aboard this mighty vessel. 
+Now time to implement my darstardly plan!
+Yours Sincerely,
+
+A Guest of the Deep
+```
+**Encrypted Letter**```
+c.p.x. mkmuhkr  
+pucrshk qkctntxx xtcfkrt  
+ulckn 12, 1912
+pi xtrctm unkux kx pc vuptx pscuh
+
+u aytxm sb met dttl
+```
+### Possible suspects 
 
 ---
 ## Game End

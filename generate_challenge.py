@@ -118,6 +118,34 @@ def get_fare_statistics_by_class(df):
             }
     return stats
 
+# Generate a key for the substitution cipher
+def generate_key():
+    letters = list("abcdefhijklmnopqrstuvwxyz")
+    random.shuffle(letters)
+
+    cipher_key = ''.join(letters)
+    print(cipher_key)
+    return cipher_key
+
+# Encryption algorithm for monoalphabetic substitution cipher
+# Key is a string of 26 characters
+def encrypt(plain_text, key):
+    cipher_text = ""
+    plain_text = plain_text.lower()
+    for char in plain_text:
+        if ord(char) >= ord('a') and ord(char) <= ord('z'):
+            # Get index of plain text within alphabet (start from 0)
+            pos = ord(char) - ord('a')
+            cipher_text += key[pos]
+        else:
+            cipher_text += char
+        
+    return cipher_text
+
+# Decryption algorithm for monoalphabetic substitution cipher
+def decrypt(cipher_text, key):
+    # Have to invert key to decrypt
+    pass
 
 def generate_challenge_1(df):
     """Generate Challenge 1: Find the Anomaly"""
@@ -329,6 +357,56 @@ def generate_challenge_3(df):
 
     return challenge_data
 
+def generate_challenge_4(df):
+    """Generate challenge 4 - Letters from a Stowaway"""
+    stowaway = df.sample(1)
+
+    cipher_key = generate_key()
+
+    # Intercepted letter is not to be encrypted as it is to be used to help decrypt the other letter
+    intercepted_letter = """   
+R.M.S. TITANIC  
+MARCONI WIRELESS SERVICE  
+APRIL 12, 1912
+To Mr. David Smith
+Good afternoon, I have snuck aboard this mighty vessel. 
+Now time to implement my darstardly plan!
+Yours Sincerely,
+
+A Guest of the Deep"""
+    # Plaintext letter should not contain numbers.
+    plaintext_letter = """
+R.M.S. TITANIC  
+MARCONI WIRELESS SERVICE  
+APRIL 12, 1912
+My secret alias is Mr James Moran
+
+A Guest of the Deep"""
+
+    story_text = """
+    
+    The Captain has called you and your group to the deck of the ship with an 
+    urgent mission. Telegrams have been intercepted from the ship's Marconi machine
+    and it appears there is a stowaway on board! Unfortunately, the dastardly 
+    stowaway has managed to scramble one of the telegrams using a mysterious code. 
+    The Captain has created a list of 10 suspects. Can you decipher the letter and
+    obtain the identity of the suspect before they get away?!
+    
+    """
+
+    ciphertext_letter = encrypt(plaintext_letter, cipher_key)
+
+    challenge_data = {
+        "id": 4,
+        "title": "Letters from a Stowaway",
+        "story": story_text,
+        "instructions": "Decode the encrypted letter and select the name from the list of suspects.",
+        "intercepted_letter" : intercepted_letter,
+        "ciphertext_letter" : ciphertext_letter
+    }
+
+    return challenge_data
+
 
 def generate_game_data():
     """Generate fresh game data from dataset"""
@@ -342,6 +420,9 @@ def generate_game_data():
     print("Generating challenge 3...")
     challenge_3 = generate_challenge_3(df)
 
+    print("Generating challenge 4...")
+    challenge_4 = generate_challenge_4(df)
+
     game_data = {
         "story_background": {
             "theme": "The Temporal Rift on the Titanic",
@@ -350,7 +431,8 @@ def generate_game_data():
         },
         "challenges": [
             challenge_1,
-            challenge_3
+            challenge_3,
+            challenge_4
         ]
     }
     

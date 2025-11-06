@@ -5,35 +5,35 @@
     "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
     "passengers": [
         {
-            "Name": "Reeves, Mr. David",
+            "Name": "Palsson, Mrs. Nils (Alma Cornelia Berglund)",
+            "Pclass": 3,
+            "Age": 29,
+            "Sex": "female",
+            "Fare": 21.07,
+            "Embarked": "S"
+        },
+        {
+            "Name": "Brown, Miss. Amelia \"Mildred\"",
             "Pclass": 2,
-            "Age": 36,
-            "Sex": "male",
-            "Fare": 10.5,
+            "Age": 24,
+            "Sex": "female",
+            "Fare": 13.0,
             "Embarked": "S"
         },
         {
-            "Name": "Foo, Mr. Choong",
-            "Pclass": 3,
-            "Age": 50,
+            "Name": "Reuchlin, Jonkheer. John George",
+            "Pclass": 1,
+            "Age": 38,
             "Sex": "male",
-            "Fare": 56.5,
+            "Fare": 0.0,
             "Embarked": "S"
         },
         {
-            "Name": "Zabour, Miss. Thamine",
+            "Name": "Laleff, Mr. Kristo",
             "Pclass": 3,
-            "Age": 22,
-            "Sex": "female",
-            "Fare": 14.45,
-            "Embarked": "C"
-        },
-        {
-            "Name": "Lobb, Mrs. William Arthur (Cordelia K Stanlick)",
-            "Pclass": 3,
-            "Age": 26,
-            "Sex": "female",
-            "Fare": 16.1,
+            "Age": 28,
+            "Sex": "male",
+            "Fare": 7.9,
             "Embarked": "S"
         }
     ],
