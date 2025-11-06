@@ -5,6 +5,7 @@
     "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
     "passengers": [
         {
+<<<<<<< Updated upstream
             "Name": "Banfield, Mr. Frederick James",
             "Pclass": 2,
             "Age": 28,
@@ -35,6 +36,38 @@
             "Sex": "male",
             "Fare": 7.22,
             "Embarked": "C"
+=======
+            "Name": "Reuchlin, Jonkheer. John George",
+            "Pclass": 1,
+            "Age": 38,
+            "Sex": "male",
+            "Fare": 0.0,
+            "Embarked": "S"
+        },
+        {
+            "Name": "Vestrom, Miss. Hulda Amanda Adolfina",
+            "Pclass": 3,
+            "Age": 14,
+            "Sex": "female",
+            "Fare": 7.85,
+            "Embarked": "S"
+        },
+        {
+            "Name": "Laroche, Mrs. Joseph (Juliette Marie Louise Lafargue)",
+            "Pclass": 2,
+            "Age": 22,
+            "Sex": "female",
+            "Fare": 41.58,
+            "Embarked": "C"
+        },
+        {
+            "Name": "Harmer, Mr. Abraham (David Lishin)",
+            "Pclass": 3,
+            "Age": 25,
+            "Sex": "male",
+            "Fare": 7.25,
+            "Embarked": "S"
+>>>>>>> Stashed changes
         }
     ],
     "static_clues": [

@@ -5,12 +5,13 @@
         "goal": "Before the ship sinks, find 5 missing 'temporal coordinate fragments'."
     },
     "challenges": [
+        null,
         {
-            "title": "Challenge 1: Purser's Office (Find the Anomaly)",
-            "story": "You've just boarded and been caught as stowaways. On the desk is a stack of passenger registration cards. You must identify the 'forged' card among them.",
-            "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
-            "passenger_cards": [
+            "title": "Challenge 2: Echoes of the Passengers (Timeline Synchronization)",
+            "story_intro": "Time ripples carry brief echoes of five travelers aboard the Titanic. Align their moments to restore the timeline.",
+            "echoes": [
                 {
+<<<<<<< Updated upstream
                     "name": "Asim, Mr. Adola",
                     "Pclass": 3,
                     "Age": 35.0,
@@ -89,6 +90,28 @@
                     "text": "Rice boards at Queenstown (Q); a third-class ticket rustles in hand."
                 }
             ],
+=======
+                    "letter": "A",
+                    "text": "Kraeff boards at Cherbourg (C); a third-class ticket rustles in hand."
+                },
+                {
+                    "letter": "B",
+                    "text": "Lanterns sway as the deck tilts; Nilsson steadies a stranger amid rising alarm."
+                },
+                {
+                    "letter": "C",
+                    "text": "In the final chaos, Moubarek finds space in a lifeboat and slips into the night."
+                },
+                {
+                    "letter": "D",
+                    "text": "Skoog boards at Southampton (S); a third-class ticket rustles in hand."
+                },
+                {
+                    "letter": "E",
+                    "text": "McGovern boards at Queenstown (Q); a third-class ticket rustles in hand."
+                }
+            ],
+>>>>>>> Stashed changes
             "known_facts": [
                 "Boarding order by port: Southampton (S) → Cherbourg (C) → Queenstown (Q).",
                 "Phrases like 'boarded at' are before the iceberg impact.",
@@ -96,7 +119,11 @@
                 "Mentions of 'escaped' or 'lifeboat' happen last."
             ],
             "task": "Arrange the echoes (A–E) in correct chronological order.",
+<<<<<<< Updated upstream
             "solution": "C, D, E, A, B",
+=======
+            "solution": "D, A, E, B, C",
+>>>>>>> Stashed changes
             "explanation": "Boarding echoes come first and follow port order S → C → Q; post-impact echoes (tilted/helping/chaos) follow; the lifeboat escape is last."
         },
         {
@@ -106,6 +133,7 @@
             "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
             "passengers": [
                 {
+<<<<<<< Updated upstream
                     "Name": "Banfield, Mr. Frederick James",
                     "Pclass": 2,
                     "Age": 28,
@@ -136,6 +164,38 @@
                     "Sex": "male",
                     "Fare": 7.22,
                     "Embarked": "C"
+=======
+                    "Name": "Reuchlin, Jonkheer. John George",
+                    "Pclass": 1,
+                    "Age": 38,
+                    "Sex": "male",
+                    "Fare": 0.0,
+                    "Embarked": "S"
+                },
+                {
+                    "Name": "Vestrom, Miss. Hulda Amanda Adolfina",
+                    "Pclass": 3,
+                    "Age": 14,
+                    "Sex": "female",
+                    "Fare": 7.85,
+                    "Embarked": "S"
+                },
+                {
+                    "Name": "Laroche, Mrs. Joseph (Juliette Marie Louise Lafargue)",
+                    "Pclass": 2,
+                    "Age": 22,
+                    "Sex": "female",
+                    "Fare": 41.58,
+                    "Embarked": "C"
+                },
+                {
+                    "Name": "Harmer, Mr. Abraham (David Lishin)",
+                    "Pclass": 3,
+                    "Age": 25,
+                    "Sex": "male",
+                    "Fare": 7.25,
+                    "Embarked": "S"
+>>>>>>> Stashed changes
                 }
             ],
             "static_clues": [
@@ -153,6 +213,7 @@
                 "hint/challenge_3_age_group.png"
             ],
             "correct_code": "0010"
+<<<<<<< Updated upstream
         },
         {
             "id": 4,
@@ -161,6 +222,8 @@
             "instructions": "Decode the encrypted letter and select the name from the list of suspects.",
             "intercepted_letter": "   \nR.M.S. TITANIC  \nMARCONI WIRELESS SERVICE  \nAPRIL 12, 1912\nTo Mr. David Smith\nGood afternoon, I have snuck aboard this mighty vessel. \nNow time to implement my darstardly plan!\nYours Sincerely,\n\nA Guest of the Deep",
             "ciphertext_letter": "\na.d.o. bsbwjsq  \ndwaqrjs zsalfloo olaisql  \nwnasf 12, 1912\ndk olqalb wfswo so da vwdlo drawj\n\nw hmlob re bxl ylln"
+=======
+>>>>>>> Stashed changes
         }
     ]
 }
