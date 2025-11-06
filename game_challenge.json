@@ -2,7 +2,7 @@
     "story_background": {
         "theme": "The Temporal Rift on the Titanic",
         "role": "You are a team of time travelers.",
-        "goal": "Before the ship sinks, find 4 missing 'temporal coordinate fragments'."
+        "goal": "Before the ship sinks, find 5 missing 'temporal coordinate fragments'."
     },
     "challenges": [
         {
@@ -11,58 +11,113 @@
             "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
             "passenger_cards": [
                 {
-                    "name": "Asplund, Master. Edvin Rojj Felix",
-                    "Pclass": 3,
-                    "Age": 3.0,
+                    "name": "Carter, Rev. Ernest Courtenay",
+                    "Pclass": 2,
+                    "Age": 54.0,
                     "Sex": "male",
-                    "Fare": 31.39,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Cribb, Mr. John Hatfield",
-                    "Pclass": 3,
-                    "Age": 44.0,
-                    "Sex": "male",
-                    "Fare": 16.1,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Lobb, Mrs. William Arthur (Cordelia K Stanlick)",
-                    "Pclass": 3,
-                    "Age": 26.0,
-                    "Sex": "female",
-                    "Fare": 16.1,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Vander Planke, Mrs. Julius (Emelia Maria Vandemoortele)",
-                    "Pclass": 3,
-                    "Age": 31.0,
-                    "Sex": "female",
-                    "Fare": 18.0,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Carlsson, Mr. August Sigfrid",
-                    "Pclass": 1,
-                    "Age": 28.0,
-                    "Sex": "male",
-                    "Fare": 8.59,
+                    "Fare": 270.29,
                     "Embarked": "S",
                     "_is_fake": true
                 },
                 {
-                    "name": "Attalah, Mr. Sleiman",
+                    "name": "Andersson, Mr. Anders Johan",
                     "Pclass": 3,
-                    "Age": 30.0,
+                    "Age": 39.0,
                     "Sex": "male",
-                    "Fare": 7.22,
+                    "Fare": 31.27,
+                    "Embarked": "S"
+                },
+                {
+                    "name": "Tikkanen, Mr. Juho",
+                    "Pclass": 3,
+                    "Age": 32.0,
+                    "Sex": "male",
+                    "Fare": 7.92,
+                    "Embarked": "S"
+                },
+                {
+                    "name": "Carr, Miss. Helen \"Ellen\"",
+                    "Pclass": 3,
+                    "Age": 16.0,
+                    "Sex": "female",
+                    "Fare": 7.75,
+                    "Embarked": "Q"
+                },
+                {
+                    "name": "Bishop, Mr. Dickinson H",
+                    "Pclass": 1,
+                    "Age": 25.0,
+                    "Sex": "male",
+                    "Fare": 91.08,
                     "Embarked": "C"
+                },
+                {
+                    "name": "Berriman, Mr. William John",
+                    "Pclass": 2,
+                    "Age": 23.0,
+                    "Sex": "male",
+                    "Fare": 13.0,
+                    "Embarked": "S"
                 }
             ],
             "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
             "hint_chart": "hint\\challenge_1_boxplot.png",
-            "answer": "The forged card: 1st class (Pclass=1) but paying £8.59, which is much lower than typical 1st class fares (£5.00-512.33)."
+            "answer": "The forged card: 2nd class (Pclass=2) but paying £270.29, which doesn't match typical 2nd class fares (£10.50-73.50)."
+        },
+        {
+            "id": 3,
+            "title": "Decipher the Lifeboat Code",
+            "story": "The lifeboat lock requires a 4-digit code based on passengers' survival predictions.",
+            "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
+            "passengers": [
+                {
+                    "Name": "Reeves, Mr. David",
+                    "Pclass": 2,
+                    "Age": 36,
+                    "Sex": "male",
+                    "Fare": 10.5,
+                    "Embarked": "S"
+                },
+                {
+                    "Name": "Foo, Mr. Choong",
+                    "Pclass": 3,
+                    "Age": 50,
+                    "Sex": "male",
+                    "Fare": 56.5,
+                    "Embarked": "S"
+                },
+                {
+                    "Name": "Zabour, Miss. Thamine",
+                    "Pclass": 3,
+                    "Age": 22,
+                    "Sex": "female",
+                    "Fare": 14.45,
+                    "Embarked": "C"
+                },
+                {
+                    "Name": "Lobb, Mrs. William Arthur (Cordelia K Stanlick)",
+                    "Pclass": 3,
+                    "Age": 26,
+                    "Sex": "female",
+                    "Fare": 16.1,
+                    "Embarked": "S"
+                }
+            ],
+            "static_clues": [
+                {
+                    "heading": "Survival Probability: Sex vs. Pclass",
+                    "content": "Female (Class 1): 96.8%; Female (Class 2): 92.1%; Female (Class 3): 50.0%; Male (Class 1): 36.9%; Male (Class 2): 15.7%; Male (Class 3): 13.5%"
+                },
+                {
+                    "heading": "Survival Probability: Age Groups",
+                    "content": "<10: 61.3%; 10-20: 40.2%; 20-40: 38.8%; 40-60: 39.4%; 60+: 26.9%"
+                }
+            ],
+            "hint_chart": [
+                "hint\\challenge_3_sex_pclass.png",
+                "hint\\challenge_3_age_group.png"
+            ],
+            "correct_code": "0100"
         }
     ]
 }

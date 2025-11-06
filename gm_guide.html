@@ -324,7 +324,7 @@
             <h1>The Temporal Rift on the Titanic: GM Guide</h1>
 
 <strong>Player Role:</strong> You are a team of time travelers.
-<strong>Final Goal:</strong> Before the ship sinks, find 4 missing 'temporal coordinate fragments'.
+<strong>Final Goal:</strong> Before the ship sinks, find 5 missing 'temporal coordinate fragments'.
 
 <hr> 
 <h2>Challenge 1: Purser's Office (Find the Anomaly)</h2>
@@ -333,76 +333,133 @@
 
 <strong>Task:</strong> Out of the following 6 passenger cards, which one is statistically impossible?
 
-<div class="chart-container"><img src="hint\challenge_1_boxplot.png" alt="Box Plot" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+<div class="chart-container"><img src="hint\challenge_1_boxplot.png" alt="Box Plot" style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.1);"></div>
 
 <h3>Passenger Cards (Show to Players)</h3>
 
 <strong>Card 1</strong>
 <pre><code>
-name: Asplund, Master. Edvin Rojj Felix
-Pclass: 3
-Age: 3.0
+name: Carter, Rev. Ernest Courtenay
+Pclass: 2
+Age: 54.0
 Sex: male
-Fare: 31.39
+Fare: 270.29
 Embarked: S
 </code></pre>
 <strong>Card 2</strong>
 <pre><code>
-name: Cribb, Mr. John Hatfield
+name: Andersson, Mr. Anders Johan
 Pclass: 3
-Age: 44.0
+Age: 39.0
 Sex: male
-Fare: 16.1
+Fare: 31.27
 Embarked: S
 </code></pre>
 <strong>Card 3</strong>
 <pre><code>
-name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
+name: Tikkanen, Mr. Juho
 Pclass: 3
-Age: 26.0
-Sex: female
-Fare: 16.1
+Age: 32.0
+Sex: male
+Fare: 7.92
 Embarked: S
 </code></pre>
 <strong>Card 4</strong>
 <pre><code>
-name: Vander Planke, Mrs. Julius (Emelia Maria Vandemoortele)
+name: Carr, Miss. Helen "Ellen"
 Pclass: 3
-Age: 31.0
+Age: 16.0
 Sex: female
-Fare: 18.0
-Embarked: S
+Fare: 7.75
+Embarked: Q
 </code></pre>
 <strong>Card 5</strong>
 <pre><code>
-name: Carlsson, Mr. August Sigfrid
+name: Bishop, Mr. Dickinson H
 Pclass: 1
-Age: 28.0
+Age: 25.0
 Sex: male
-Fare: 8.59
-Embarked: S
+Fare: 91.08
+Embarked: C
 </code></pre>
 <strong>Card 6</strong>
 <pre><code>
-name: Attalah, Mr. Sleiman
-Pclass: 3
-Age: 30.0
+name: Berriman, Mr. William John
+Pclass: 2
+Age: 23.0
 Sex: male
-Fare: 7.22
-Embarked: C
+Fare: 13.0
+Embarked: S
 </code></pre>
 
 <hr>
 <h3>GM Guide</h3>
 
 <blockquote><strong>Hint:</strong> GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.</blockquote>
-<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('aecd8664')">Click to Reveal Answer</button><div class="answer-content" id="answer-aecd8664" style="display:none;">The forged card: 1st class (Pclass=1) but paying £8.59, which is much lower than typical 1st class fares (£5.00-512.33). <strong>(In this game, this card is Card 5)</strong></div></div></blockquote>
+<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('364147e5')">Click to Reveal Answer</button><div class="answer-content" id="answer-364147e5" style="display:none;">The forged card: 2nd class (Pclass=2) but paying £270.29, which doesn't match typical 2nd class fares (£10.50-73.50). <strong>(In this game, this card is Card 1)</strong></div></div></blockquote>
 <blockquote><strong>Obtain:</strong> <strong>Temporal Coordinate Fragment 1</strong> hidden under the forged card.</blockquote>
+
+<hr>
+<h2>Decipher the Lifeboat Code</h2>
+
+<strong>Story:</strong> The lifeboat lock requires a 4-digit code based on passengers' survival predictions.
+
+<strong>Task:</strong> Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.
+
+<div class="chart-container"><img src="hint/challenge_3_sex_pclass.png" alt="Hint Chart 1" style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.1);"></div>
+
+<div class="chart-container"><img src="hint/challenge_3_age_group.png" alt="Hint Chart 2" style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.1);"></div>
+
+<h3>Passenger Cards (Show to Players)</h3>
+
+<strong>Card 1</strong>
+<pre><code>
+Name: Reeves, Mr. David
+Pclass: 2
+Age: 36
+Sex: male
+Fare: 10.5
+Embarked: S
+</code></pre>
+<strong>Card 2</strong>
+<pre><code>
+Name: Foo, Mr. Choong
+Pclass: 3
+Age: 50
+Sex: male
+Fare: 56.5
+Embarked: S
+</code></pre>
+<strong>Card 3</strong>
+<pre><code>
+Name: Zabour, Miss. Thamine
+Pclass: 3
+Age: 22
+Sex: female
+Fare: 14.45
+Embarked: C
+</code></pre>
+<strong>Card 4</strong>
+<pre><code>
+Name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
+Pclass: 3
+Age: 26
+Sex: female
+Fare: 16.1
+Embarked: S
+</code></pre>
+
+<hr>
+<h3>GM Guide</h3>
+
+<blockquote><strong>Hint:</strong> Use the survival charts above to infer the 4-digit lifeboat code.</blockquote>
+<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('aab6a051')">Click to Reveal Answer</button><div class="answer-content" id="answer-aab6a051" style="display:none;">0100</div></div></blockquote>
+<blockquote><strong>Obtain:</strong> <strong>Temporal Coordinate Fragment 3</strong> hidden within the lifeboat control panel.</blockquote>
 
 <hr>
 <h2>Game End</h2>
 
-<p>Congratulations! You've collected all 4 coordinate fragments, restarted the time machine, and successfully escaped from 1912 at the moment the Titanic sank.</p>
+<p>Congratulations! You've collected all 5 coordinate fragments, restarted the time machine, and successfully escaped from 1912 at the moment the Titanic sank.</p>
         </div>
     </div>
     

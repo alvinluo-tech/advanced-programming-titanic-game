@@ -4,48 +4,50 @@ from generate_challenge import generate_game_data, save_game_data
 
 
 def markdown_to_html(md_text):
-    """Convert basic markdown to HTML"""
+    """Convert basic markdown to HTML (supports multiple reveal blocks)"""
     html = md_text
-    
-    # Handle answer reveal mechanism
+
     import uuid
-    reveal_id = str(uuid.uuid4())[:8]
-    html = re.sub(r'\[\[REVEAL_ANSWER\]\](.+?)\[\[END_REVEAL\]\]', 
-                  lambda m: f'<div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer(\'{reveal_id}\')">Click to Reveal Answer</button><div class="answer-content" id="answer-{reveal_id}" style="display:none;">{m.group(1)}</div></div>',
-                  html, flags=re.DOTALL)
-    
-    # Headers
+    # correction for multiple reveal blocks
+    def replace_reveal(m):
+        reveal_id = str(uuid.uuid4())[:8]
+        return (
+            f'<div class="answer-reveal">'
+            f'<button class="reveal-btn" onclick="toggleAnswer(\'{reveal_id}\')">Click to Reveal Answer</button>'
+            f'<div class="answer-content" id="answer-{reveal_id}" style="display:none;">'
+            f'{m.group(1).strip()}</div></div>'
+        )
+
+    html = re.sub(
+        r'\[\[REVEAL_ANSWER\]\](.*?)\[\[END_REVEAL\]\]',
+        replace_reveal,
+        html,
+        flags=re.DOTALL
+    )
+
+    # Markdown → HTML replacements
     html = re.sub(r'^# (.+)$', r'<h1>\1</h1>', html, flags=re.MULTILINE)
     html = re.sub(r'^## (.+)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)
     html = re.sub(r'^### (.+)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
     html = re.sub(r'^#### (.+)$', r'<h4>\1</h4>', html, flags=re.MULTILINE)
-    
-    # Images - !![alt](path)
-    html = re.sub(r'!\[(.+?)\]\((.+?)\)', r'<div class="chart-container"><img src="\2" alt="\1" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>', html)
-    
-    # Bold
+
+    # regardless of quotes or spaces
+    html = re.sub(
+        r'!\[(.+?)\]\((.+?)\)',
+        r'<div class="chart-container"><img src="\2" alt="\1" style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 4px 8px rgba(0,0,0,0.1);"></div>',
+        html
+    )
+
     html = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', html)
-    
-    # Italic
     html = re.sub(r'\*(.+?)\*', r'<em>\1</em>', html)
-    
-    # Code blocks
     html = re.sub(r'```([\s\S]+?)```', r'<pre><code>\1</code></pre>', html)
-    
-    # Inline code
     html = re.sub(r'`(.+?)`', r'<code>\1</code>', html)
-    
-    # Horizontal rules
     html = re.sub(r'^---', r'<hr>', html, flags=re.MULTILINE)
-    
-    # Blockquotes
     html = re.sub(r'^> (.+)$', r'<blockquote>\1</blockquote>', html, flags=re.MULTILINE)
-    
-    # Lists (basic support)
+
+    # Lists
     lines = html.split('\n')
-    html_lines = []
-    in_list = False
-    
+    html_lines, in_list = [], False
     for line in lines:
         if line.strip().startswith('-'):
             if not in_list:
@@ -57,29 +59,22 @@ def markdown_to_html(md_text):
                 html_lines.append('</ul>')
                 in_list = False
             html_lines.append(line)
-    
     if in_list:
         html_lines.append('</ul>')
-    
     html = '\n'.join(html_lines)
-    
-    # Convert line breaks to paragraphs
+
+    # Paragraphs
     paragraphs = html.split('\n\n')
     html_paragraphs = []
-    
     for para in paragraphs:
         para = para.strip()
         if para and not para.startswith('<') and '</' not in para:
-            if not para.startswith('<'):
-                html_paragraphs.append(f'<p>{para}</p>')
-            else:
-                html_paragraphs.append(para)
+            html_paragraphs.append(f'<p>{para}</p>')
         else:
             html_paragraphs.append(para)
-    
     html = '\n\n'.join(html_paragraphs)
-    
     return html
+
 
 
 def format_challenge_1(data):
@@ -112,6 +107,45 @@ def format_challenge_1(data):
     md += f"> **Answer:** [[REVEAL_ANSWER]]{data['answer']} **(In this game, this card is Card {fake_card_index})**[[END_REVEAL]]\n"
     md += "> **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.\n\n"
     return md
+
+
+def format_challenge_3(data):
+    """Format Challenge 3 (Lifeboat Code) to Markdown"""
+    md = f"## {data['title']}\n\n"
+    md += f"**Story:** {data.get('story', '')}\n\n"
+    md += f"**Task:** {data.get('instructions', data.get('task', ''))}\n\n"
+
+    # render hint charts
+    if 'hint_chart' in data and data['hint_chart']:
+        if isinstance(data['hint_chart'], list):
+            for idx, chart_path in enumerate(data['hint_chart']):
+                clean_path = str(chart_path).strip().replace("\\", "/").replace("'", "")
+                md += f"![Hint Chart {idx + 1}]({clean_path})\n\n"
+        else:
+            clean_path = str(data['hint_chart']).strip().replace("\\", "/").replace("'", "")
+            md += f"![Hint Chart]({clean_path})\n\n"
+    elif 'static_clues' in data:
+        md += "### Survival Clues\n\n"
+        for clue in data['static_clues']:
+            md += f"**{clue['heading']}**\n\n{clue['content']}\n\n"
+
+    md += "### Passenger Cards (Show to Players)\n\n"
+    for i, card in enumerate(data['passengers']):
+        md += f"**Card {i + 1}**\n"
+        md += "```\n"
+        for key, value in card.items():
+            if key != 'Survived':
+                md += f"{key}: {value}\n"
+        md += "```\n"
+
+    md += "\n---\n"
+    md += "### GM Guide\n\n"
+    md += f"> **Hint:** Use the survival charts above to infer the 4-digit lifeboat code.\n"
+    md += f"> **Answer:** [[REVEAL_ANSWER]]{data['correct_code']}[[END_REVEAL]]\n"
+    md += "> **Obtain:** **Temporal Coordinate Fragment 3** hidden within the lifeboat control panel.\n\n"
+
+    return md
+
 
 
 def get_html_template():
@@ -584,7 +618,7 @@ def get_html_template():
 def main():
     # Generate fresh game data (regenerates every run)
     game_data = generate_game_data()
-    
+
     # Save the JSON file for reference
     save_game_data(game_data)
     
@@ -596,7 +630,8 @@ def main():
 
     # Format function mapping
     format_functions = [
-        format_challenge_1
+        format_challenge_1,
+        format_challenge_3
     ]
     print("Converting challenges to Markdown...")
     for i, challenge_data in enumerate(game_data['challenges']):
@@ -604,7 +639,7 @@ def main():
         md_output += "---\n"
 
     md_output += "## Game End\n\n"
-    md_output += "Congratulations! You've collected all 4 coordinate fragments, restarted the time machine, and successfully escaped from 1912 at the moment the Titanic sank.\n"
+    md_output += "Congratulations! You've collected all 5 coordinate fragments, restarted the time machine, and successfully escaped from 1912 at the moment the Titanic sank.\n"
     
     # Save markdown file
     print("Saving Markdown file...")

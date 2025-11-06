@@ -1,7 +1,7 @@
 # The Temporal Rift on the Titanic: GM Guide
 
 **Player Role:** You are a team of time travelers.
-**Final Goal:** Before the ship sinks, find 4 missing 'temporal coordinate fragments'.
+**Final Goal:** Before the ship sinks, find 5 missing 'temporal coordinate fragments'.
 
 --- 
 ## Challenge 1: Purser's Office (Find the Anomaly)
@@ -16,67 +16,124 @@
 
 **Card 1**
 ```
-name: Asplund, Master. Edvin Rojj Felix
-Pclass: 3
-Age: 3.0
+name: Carter, Rev. Ernest Courtenay
+Pclass: 2
+Age: 54.0
 Sex: male
-Fare: 31.39
+Fare: 270.29
 Embarked: S
 ```
 **Card 2**
 ```
-name: Cribb, Mr. John Hatfield
+name: Andersson, Mr. Anders Johan
 Pclass: 3
-Age: 44.0
+Age: 39.0
 Sex: male
-Fare: 16.1
+Fare: 31.27
 Embarked: S
 ```
 **Card 3**
 ```
-name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
+name: Tikkanen, Mr. Juho
 Pclass: 3
-Age: 26.0
-Sex: female
-Fare: 16.1
+Age: 32.0
+Sex: male
+Fare: 7.92
 Embarked: S
 ```
 **Card 4**
 ```
-name: Vander Planke, Mrs. Julius (Emelia Maria Vandemoortele)
+name: Carr, Miss. Helen "Ellen"
 Pclass: 3
-Age: 31.0
+Age: 16.0
 Sex: female
-Fare: 18.0
-Embarked: S
+Fare: 7.75
+Embarked: Q
 ```
 **Card 5**
 ```
-name: Carlsson, Mr. August Sigfrid
+name: Bishop, Mr. Dickinson H
 Pclass: 1
-Age: 28.0
+Age: 25.0
 Sex: male
-Fare: 8.59
-Embarked: S
+Fare: 91.08
+Embarked: C
 ```
 **Card 6**
 ```
-name: Attalah, Mr. Sleiman
-Pclass: 3
-Age: 30.0
+name: Berriman, Mr. William John
+Pclass: 2
+Age: 23.0
 Sex: male
-Fare: 7.22
-Embarked: C
+Fare: 13.0
+Embarked: S
 ```
 
 ---
 ### GM Guide
 
 > **Hint:** GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.
-> **Answer:** [[REVEAL_ANSWER]]The forged card: 1st class (Pclass=1) but paying £8.59, which is much lower than typical 1st class fares (£5.00-512.33). **(In this game, this card is Card 5)**[[END_REVEAL]]
+> **Answer:** [[REVEAL_ANSWER]]The forged card: 2nd class (Pclass=2) but paying £270.29, which doesn't match typical 2nd class fares (£10.50-73.50). **(In this game, this card is Card 1)**[[END_REVEAL]]
 > **Obtain:** **Temporal Coordinate Fragment 1** hidden under the forged card.
+
+---
+## Decipher the Lifeboat Code
+
+**Story:** The lifeboat lock requires a 4-digit code based on passengers' survival predictions.
+
+**Task:** Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.
+
+![Hint Chart 1](hint/challenge_3_sex_pclass.png)
+
+![Hint Chart 2](hint/challenge_3_age_group.png)
+
+### Passenger Cards (Show to Players)
+
+**Card 1**
+```
+Name: Reeves, Mr. David
+Pclass: 2
+Age: 36
+Sex: male
+Fare: 10.5
+Embarked: S
+```
+**Card 2**
+```
+Name: Foo, Mr. Choong
+Pclass: 3
+Age: 50
+Sex: male
+Fare: 56.5
+Embarked: S
+```
+**Card 3**
+```
+Name: Zabour, Miss. Thamine
+Pclass: 3
+Age: 22
+Sex: female
+Fare: 14.45
+Embarked: C
+```
+**Card 4**
+```
+Name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
+Pclass: 3
+Age: 26
+Sex: female
+Fare: 16.1
+Embarked: S
+```
+
+---
+### GM Guide
+
+> **Hint:** Use the survival charts above to infer the 4-digit lifeboat code.
+> **Answer:** [[REVEAL_ANSWER]]0100[[END_REVEAL]]
+> **Obtain:** **Temporal Coordinate Fragment 3** hidden within the lifeboat control panel.
 
 ---
 ## Game End
 
-Congratulations! You've collected all 4 coordinate fragments, restarted the time machine, and successfully escaped from 1912 at the moment the Titanic sank.
+Congratulations! You've collected all 5 coordinate fragments, restarted the time machine, and successfully escaped from 1912 at the moment the Titanic sank.
