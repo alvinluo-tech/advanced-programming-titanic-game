@@ -1,35 +1,32 @@
 # 🧩 Challenge 3: Decipher the Lifeboat Code
 
-## 🎯 Overview
+## Overview
 
 This is the third escape challenge of the group project **“The Temporal Rift on the Titanic”**, designed and implemented by **[Your Name]**.
 
 In this stage, players must **analyze Titanic passenger survival data** to deduce a hidden **4-bit binary lifeboat code**.  
 This code unlocks the final lifeboat control system and advances the team toward temporal escape.
 
-Unlike other stages, this challenge integrates **real statistical reasoning** and **data visualization** into the game narrative.
+This challenge integrates **real statistical reasoning** and **data visualization** into the game narrative.
 
 ---
 
-## 🧭 Story Background
+## Story Background
 
-After the forged passenger card has been revealed in the first challenge,  
-the team reaches the **Titanic lifeboat deck**.  
+
 Here, the control console demands a mysterious **4-digit binary code** to activate the final escape system.
-
-> “The ship’s fate depends on survival probabilities — analyze wisely before it’s too late…”
 
 Players must deduce the code based on **passenger survival analysis** from Titanic dataset clues.
 
 ---
 
-## 🧠 Challenge Task
+## Challenge Task
 
 > **Objective:**  
 > Using the passenger cards provided and the GM’s analytical hints, deduce the **correct 4-bit lifeboat code**.
 
 Players will be given:
-- **6 passenger cards** (5 real + 1 fabricated),
+- **4 passenger cards** ,
 - Each with **Name, Pclass, Age, Sex, Fare, Embarked**,
 - The GM provides **survival rate analysis charts** for guidance.
 
@@ -47,12 +44,12 @@ A visual breakdown of survival likelihood depending on both **gender** and **tic
 
 | Sex | Class | Survival Rate |
 |------|-------|----------------|
-| Female | 1st | ~96.8% |
-| Female | 2nd | ~92.1% |
-| Female | 3rd | ~50% |
-| Male | 1st | ~36.9% |
-| Male | 2nd | ~15.7% |
-| Male | 3rd | ~13.5% |
+| Female | 1st | 96.8% |
+| Female | 2nd | 92.1% |
+| Female | 3rd | 50% |
+| Male | 1st | 36.9% |
+| Male | 2nd | 15.7% |
+| Male | 3rd | 13.5% |
 
 **Insight:** female passengers and higher-class travelers have a strong survival advantage.
 
@@ -72,7 +69,7 @@ A visual breakdown of survival likelihood depending on both **gender** and **tic
 
 ---
 
-## 🧩 Code Generation Logic
+## Code Generation Logic
 
 From the analysis above, we define the 4-bit binary lifeboat code as:
 
@@ -97,19 +94,13 @@ For example:
 
 ---
 
-## ⚙️ Implementation Summary
+## Implementation Summary
 
 The challenge was implemented in **`generate_challenge_3()`**, integrated into the main game generation script `generate_challenge.py`.
 
 Key implementation steps:
-1. **Sample passenger data** (5 real + 1 fake).  
+1. **Sample passenger data** .
 2. **Generate analytical hints** using Pandas grouped survival statistics.  
-3. **Build interactive GM HTML hint** (dark-theme bar charts).  
-4. **Store challenge data** as a JSON object (`game_challenge.json`).  
+3. **Build interactive GM HTML hint** .  
+4. **Store challenge data** as a JSON object (`challenge_3_generated.json`).  
 5. **Render to Markdown & HTML** through `convert_to_html.py`.
-
-Code snippet example:
-
-```python
-"hint_chart": chart_html,
-"answer": f"The correct 4-bit lifeboat code is **{binary_code}**.",
