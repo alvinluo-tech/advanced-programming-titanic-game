@@ -11,58 +11,312 @@
             "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
             "passenger_cards": [
                 {
-                    "name": "Carter, Rev. Ernest Courtenay",
-                    "Pclass": 2,
-                    "Age": 54.0,
+                    "name": "Plotcharsky, Mr. Vasil",
+                    "Pclass": 3,
+                    "Age": NaN,
                     "Sex": "male",
-                    "Fare": 270.29,
+                    "Fare": 7.9,
+                    "Embarked": "S"
+                },
+                {
+                    "name": "Turpin, Mr. William John Robert",
+                    "Pclass": 2,
+                    "Age": 29.0,
+                    "Sex": "male",
+                    "Fare": 21.0,
+                    "Embarked": "S"
+                },
+                {
+                    "name": "Turja, Miss. Anna Sofia",
+                    "Pclass": 3,
+                    "Age": 18.0,
+                    "Sex": "female",
+                    "Fare": 9.84,
+                    "Embarked": "S"
+                },
+                {
+                    "name": "Calic, Mr. Petar",
+                    "Pclass": 1,
+                    "Age": 17.0,
+                    "Sex": "male",
+                    "Fare": 4.18,
                     "Embarked": "S",
                     "_is_fake": true
                 },
                 {
-                    "name": "Andersson, Mr. Anders Johan",
-                    "Pclass": 3,
-                    "Age": 39.0,
-                    "Sex": "male",
-                    "Fare": 31.27,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Tikkanen, Mr. Juho",
-                    "Pclass": 3,
-                    "Age": 32.0,
-                    "Sex": "male",
-                    "Fare": 7.92,
-                    "Embarked": "S"
-                },
-                {
-                    "name": "Carr, Miss. Helen \"Ellen\"",
-                    "Pclass": 3,
-                    "Age": 16.0,
-                    "Sex": "female",
-                    "Fare": 7.75,
-                    "Embarked": "Q"
-                },
-                {
-                    "name": "Bishop, Mr. Dickinson H",
-                    "Pclass": 1,
-                    "Age": 25.0,
-                    "Sex": "male",
-                    "Fare": 91.08,
-                    "Embarked": "C"
-                },
-                {
-                    "name": "Berriman, Mr. William John",
+                    "name": "Hocking, Mr. Richard George",
                     "Pclass": 2,
                     "Age": 23.0,
                     "Sex": "male",
-                    "Fare": 13.0,
+                    "Fare": 11.5,
                     "Embarked": "S"
+                },
+                {
+                    "name": "Williams, Mr. Charles Duane",
+                    "Pclass": 1,
+                    "Age": 51.0,
+                    "Sex": "male",
+                    "Fare": 61.38,
+                    "Embarked": "C"
                 }
             ],
-            "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
+            "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that card's class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
             "hint_chart": "hint\\challenge_1_boxplot.png",
-            "answer": "The forged card: 2nd class (Pclass=2) but paying £270.29, which doesn't match typical 2nd class fares (£10.50-73.50)."
+            "answer": "The forged card: 1st class (Pclass=1) but paying £4.18, which is slightly lower than typical 1st class fares (£5.00-512.33)."
+        },
+        {
+            "title": "Challenge 2: Decoding Station (Crossword Puzzle)",
+            "story": "You find a security terminal that requires decoding. The system displays a crossword puzzle that must be solved to access temporal coordinates.",
+            "task": "Complete the crossword puzzle using the column names from the Titanic dataset.",
+            "crossword_words": [
+                "Fare",
+                "Name",
+                "Cabin",
+                "Ticket",
+                "Parch"
+            ],
+            "crossword_grid": [
+                [
+                    "",
+                    "",
+                    "",
+                    " ",
+                    ""
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    " ",
+                    ""
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    " ",
+                    ""
+                ],
+                [
+                    "",
+                    " ",
+                    "",
+                    " ",
+                    ""
+                ],
+                [
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    ""
+                ],
+                [
+                    "",
+                    " ",
+                    "",
+                    " ",
+                    ""
+                ],
+                [
+                    "",
+                    " ",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " "
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    " ",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    " ",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    " ",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    " ",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    " ",
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
+            ],
+            "crossword_grid_filled": [
+                [
+                    "",
+                    "",
+                    "",
+                    "T",
+                    ""
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "I",
+                    ""
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "C",
+                    ""
+                ],
+                [
+                    "",
+                    "N",
+                    "",
+                    "K",
+                    ""
+                ],
+                [
+                    "F",
+                    "A",
+                    "R",
+                    "E",
+                    ""
+                ],
+                [
+                    "",
+                    "M",
+                    "",
+                    "T",
+                    ""
+                ],
+                [
+                    "",
+                    "E",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    "C",
+                    "A",
+                    "B",
+                    "I",
+                    "N"
+                ],
+                [
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    "P",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    "A",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    "R",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    "C",
+                    "",
+                    "",
+                    "",
+                    ""
+                ],
+                [
+                    "H",
+                    "",
+                    "",
+                    "",
+                    ""
+                ]
+            ],
+            "placed_words": [
+                {
+                    "word": "FARE",
+                    "row": 4,
+                    "col": 0,
+                    "direction": "across"
+                },
+                {
+                    "word": "NAME",
+                    "row": 3,
+                    "col": 1,
+                    "direction": "down"
+                },
+                {
+                    "word": "CABIN",
+                    "row": 7,
+                    "col": 0,
+                    "direction": "across"
+                },
+                {
+                    "word": "TICKET",
+                    "row": 0,
+                    "col": 3,
+                    "direction": "down"
+                },
+                {
+                    "word": "PARCH",
+                    "row": 9,
+                    "col": 0,
+                    "direction": "down"
+                }
+            ],
+            "directions": [
+                "across",
+                "down",
+                "across",
+                "down",
+                "down"
+            ],
+            "answer_image": "answer\\challenge_2_answer.png",
+            "hint": "GM Hint: Think about the column headers from the Titanic passenger database. The words are related to passenger information.",
+            "answer": "The words to complete are: FARE, NAME, CABIN, TICKET, PARCH."
         },
         {
             "id": 3,
@@ -71,35 +325,35 @@
             "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
             "passengers": [
                 {
-                    "Name": "Reeves, Mr. David",
+                    "Name": "Webber, Miss. Susan",
                     "Pclass": 2,
-                    "Age": 36,
-                    "Sex": "male",
-                    "Fare": 10.5,
-                    "Embarked": "S"
-                },
-                {
-                    "Name": "Foo, Mr. Choong",
-                    "Pclass": 3,
-                    "Age": 50,
-                    "Sex": "male",
-                    "Fare": 56.5,
-                    "Embarked": "S"
-                },
-                {
-                    "Name": "Zabour, Miss. Thamine",
-                    "Pclass": 3,
-                    "Age": 22,
+                    "Age": 32,
                     "Sex": "female",
-                    "Fare": 14.45,
-                    "Embarked": "C"
+                    "Fare": 13.0,
+                    "Embarked": "S"
                 },
                 {
-                    "Name": "Lobb, Mrs. William Arthur (Cordelia K Stanlick)",
+                    "Name": "Adams, Mr. John",
                     "Pclass": 3,
                     "Age": 26,
+                    "Sex": "male",
+                    "Fare": 8.05,
+                    "Embarked": "S"
+                },
+                {
+                    "Name": "Carter, Mrs. William Ernest (Lucile Polk)",
+                    "Pclass": 1,
+                    "Age": 36,
                     "Sex": "female",
-                    "Fare": 16.1,
+                    "Fare": 120.0,
+                    "Embarked": "S"
+                },
+                {
+                    "Name": "Downton, Mr. William James",
+                    "Pclass": 2,
+                    "Age": 54,
+                    "Sex": "male",
+                    "Fare": 26.0,
                     "Embarked": "S"
                 }
             ],
@@ -117,7 +371,7 @@
                 "hint\\challenge_3_sex_pclass.png",
                 "hint\\challenge_3_age_group.png"
             ],
-            "correct_code": "0100"
+            "correct_code": "1010"
         }
     ]
 }

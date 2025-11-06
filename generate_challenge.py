@@ -3,6 +3,7 @@ import pandas as pd
 import random
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 import os
 
 
@@ -140,36 +141,65 @@ def generate_challenge_1(df):
     fake_name = fake_template['Name']
     
     # Generate mismatched fare based on class
+    # Make fake fares closer to real values but still anomalous
     if fake_pclass == 3:
-        # 3rd class with unusually high fare
-        fake_fare = round(random.uniform(
-            fare_stats[1]['median'] * 0.8,  # Higher than 1st class median
-            fare_stats[1]['max'] * 1.2
-        ), 2)
+        # 3rd class with unusually high fare (between 3rd class max and 2nd class min)
+        min_fake_fare = fare_stats[3]['max'] * 1.05  # 5% above 3rd class max
+        max_fake_fare = fare_stats[2]['min'] * 0.95  # 5% below 2nd class min
+        # Ensure valid range
+        min_fake_fare = min(min_fake_fare, max_fake_fare - 1)
+        fake_fare = round(random.uniform(min_fake_fare, max_fake_fare), 2)
         expected_fare_range = f"£{fare_stats[3]['min']:.2f}-{fare_stats[3]['max']:.2f}"
         actual_fare_range = f"£{fake_fare:.2f}"
-        anomaly_description = f"3rd class (Pclass={fake_pclass}) but paying {actual_fare_range}, which is much higher than typical 3rd class fares ({expected_fare_range})"
+        anomaly_description = f"3rd class (Pclass={fake_pclass}) but paying {actual_fare_range}, which is slightly higher than typical 3rd class fares ({expected_fare_range})"
     elif fake_pclass == 2:
         # 2nd class with unusually high or low fare
         if random.random() > 0.5:
-            # Too high for 2nd class
-            fake_fare = round(random.uniform(
-                fare_stats[1]['median'] * 0.9,
-                fare_stats[1]['max'] * 1.1
-            ), 2)
+            # Too high for 2nd class (between 2nd class max and 1st class min)
+            min_fake_fare = fare_stats[2]['max'] * 1.05
+            max_fake_fare = fare_stats[1]['min'] * 0.95
+            min_fake_fare = min(min_fake_fare, max_fake_fare - 1)
+            fake_fare = round(random.uniform(min_fake_fare, max_fake_fare), 2)
             expected_range = f"£{fare_stats[2]['min']:.2f}-{fare_stats[2]['max']:.2f}"
         else:
-            # Too low for 2nd class
-            fake_fare = round(random.uniform(1, fare_stats[3]['min'] * 0.5), 2)
+            # Too low for 2nd class (should be below 2nd class min)
+            # Range: just above 3rd class max to just below 2nd class min
+            if fare_stats[3]['max'] < fare_stats[2]['min']:
+                # There's a gap between 3rd class max and 2nd class min
+                min_fake_fare = fare_stats[3]['max'] + 2
+                max_fake_fare = fare_stats[2]['min'] - 0.5
+            else:
+                # No gap, use the border range
+                min_fake_fare = fare_stats[3]['max'] * 1.05
+                max_fake_fare = fare_stats[2]['min'] * 0.99
+            # Ensure valid range
+            if min_fake_fare >= max_fake_fare:
+                # Fallback: slightly below 2nd class min
+                max_fake_fare = fare_stats[2]['min'] * 0.90
+                min_fake_fare = max_fake_fare - 5
+            fake_fare = round(random.uniform(min_fake_fare, max_fake_fare), 2)
             expected_range = f"£{fare_stats[2]['min']:.2f}-{fare_stats[2]['max']:.2f}"
         actual_range = f"£{fake_fare:.2f}"
-        anomaly_description = f"2nd class (Pclass={fake_pclass}) but paying {actual_range}, which doesn't match typical 2nd class fares ({expected_range})"
+        anomaly_description = f"2nd class (Pclass={fake_pclass}) but paying {actual_range}, which doesn't quite match typical 2nd class fares ({expected_range})"
     else:  # Pclass == 1
-        # 1st class with unusually low fare
-        fake_fare = round(random.uniform(1, fare_stats[2]['median'] * 0.8), 2)
+        # 1st class with unusually low fare (should be below 1st class min)
+        if fare_stats[2]['max'] < fare_stats[1]['min']:
+            # There's a gap between 2nd class max and 1st class min
+            min_fake_fare = fare_stats[2]['max'] + 1
+            max_fake_fare = fare_stats[1]['min'] - 0.5
+        else:
+            # No gap, use the border range
+            min_fake_fare = fare_stats[2]['max'] * 1.02
+            max_fake_fare = fare_stats[1]['min'] * 0.99
+        # Ensure valid range
+        if min_fake_fare >= max_fake_fare:
+            # Fallback: slightly below 1st class min
+            max_fake_fare = fare_stats[1]['min'] * 0.90
+            min_fake_fare = max_fake_fare - 5
+        fake_fare = round(random.uniform(min_fake_fare, max_fake_fare), 2)
         expected_range = f"£{fare_stats[1]['min']:.2f}-{fare_stats[1]['max']:.2f}"
         actual_range = f"£{fake_fare:.2f}"
-        anomaly_description = f"1st class (Pclass={fake_pclass}) but paying {actual_range}, which is much lower than typical 1st class fares ({expected_range})"
+        anomaly_description = f"1st class (Pclass={fake_pclass}) but paying {actual_range}, which is slightly lower than typical 1st class fares ({expected_range})"
     
     # Create fake card
     fake_card_data = {
@@ -195,9 +225,468 @@ def generate_challenge_1(df):
         "story": "You've just boarded and been caught as stowaways. On the desk is a stack of passenger registration cards. You must identify the 'forged' card among them.",
         "task": "Out of the following 6 passenger cards, which one is statistically impossible?",
         "passenger_cards": challenge_cards,
-        "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
+        "hint": "GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that card's class. Players should compare each card's fare with the distribution shown in the chart for that card's class.",
         "hint_chart": chart_path,  # Add chart path
         "answer": f"The forged card: {anomaly_description}."
+    }
+
+
+def find_intersection(word1, word2):
+    """Find if two words share a common letter and return the position"""
+    for i, char1 in enumerate(word1):
+        for j, char2 in enumerate(word2):
+            if char1 == char2:
+                return (i, j)
+    return None
+
+
+def try_place_word(grid, word, placed_words, max_tries=50):
+    """Try to place a word on the grid, attempting intersections"""
+    word = word.upper()
+
+    for placed_word_info in placed_words:
+        intersection = find_intersection(word, placed_word_info["word"])
+
+        if intersection:
+            word_idx, placed_idx = intersection
+
+            # Try placing perpendicular to the existing word
+            if placed_word_info["direction"] == "across":
+                # Place current word DOWN
+                try:
+                    new_row = placed_word_info["row"] - word_idx
+                    new_col = placed_word_info["col"] + placed_idx
+
+                    # Check boundaries and conflicts
+                    if new_row >= 0 and new_col >= 0 and new_row + len(word) < len(grid) and new_col < len(grid[0]):
+                        # Check for conflicts
+                        valid = True
+                        for i, char in enumerate(word):
+                            if grid[new_row + i][new_col] != '' and grid[new_row + i][new_col] != char:
+                                valid = False
+                                break
+
+                        if valid:
+                            for i, char in enumerate(word):
+                                grid[new_row + i][new_col] = char
+
+                            return {
+                                "word": word,
+                                "row": new_row,
+                                "col": new_col,
+                                "direction": "down"
+                            }
+                except (IndexError, TypeError):
+                    continue
+            else:
+                # Place current word ACROSS
+                try:
+                    new_row = placed_word_info["row"] + placed_idx
+                    new_col = placed_word_info["col"] - word_idx
+
+                    if new_col >= 0 and new_row >= 0 and new_row < len(grid) and new_col + len(word) <= len(grid[0]):
+                        valid = True
+                        for i, char in enumerate(word):
+                            if grid[new_row][new_col + i] != '' and grid[new_row][new_col + i] != char:
+                                valid = False
+                                break
+
+                        if valid:
+                            for i, char in enumerate(word):
+                                grid[new_row][new_col + i] = char
+
+                            return {
+                                "word": word,
+                                "row": new_row,
+                                "col": new_col,
+                                "direction": "across"
+                            }
+                except (IndexError, TypeError):
+                    continue
+
+    return None
+
+
+def save_crossword_answer(grid, placed_words, output_path):
+    """Save crossword answer as an image"""
+    if not grid or len(grid) == 0:
+        return
+
+    # Create figure
+    fig, ax = plt.subplots(figsize=(12, 8))
+    ax.set_xlim(0, len(grid[0]))
+    ax.set_ylim(0, len(grid))
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    # Draw cells
+    for i, row in enumerate(grid):
+        for j, cell in enumerate(row):
+            if cell != '':
+                # Draw cell
+                rect = patches.Rectangle((j, len(grid) - i - 1), 1, 1,
+                                        linewidth=2, edgecolor='#667eea',
+                                        facecolor='#fef3c7', zorder=1)
+                ax.add_patch(rect)
+
+                # Add letter
+                ax.text(j + 0.5, len(grid) - i - 0.5, cell,
+                       ha='center', va='center', fontsize=16,
+                       fontweight='bold', color='#000000', zorder=2)
+
+    # Draw numbers for word starts
+    for word_info in placed_words:
+        row = word_info["row"]
+        col = word_info["col"]
+        word = word_info["word"]
+
+        # Place number at start of word
+        ax.text(col + 0.2, len(grid) - row - 0.2,
+               str(placed_words.index(word_info) + 1),
+               ha='left', va='top', fontsize=10,
+               fontweight='bold', color='#667eea', zorder=3)
+
+    plt.title('Crossword Answer', fontsize=16, fontweight='bold', pad=20)
+    plt.tight_layout()
+
+    # Save image
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    plt.savefig(output_path, dpi=150, bbox_inches='tight')
+    plt.close()
+
+
+def generate_crossword_grid(words):
+    """Generate a compact, interconnected crossword grid"""
+    if len(words) == 0:
+        return [], [], []
+
+    # Convert to uppercase
+    words = [w.upper() for w in words]
+
+    # Create larger grid
+    grid_size = 25
+    grid = [['' for _ in range(grid_size)] for _ in range(grid_size)]
+    placed_words = []
+
+    # Place first word in center, horizontally
+    center_row = grid_size // 2
+    center_col = grid_size // 2
+    first_word = words[0]
+
+    # Place first word
+    for i, char in enumerate(first_word):
+        grid[center_row][center_col + i] = char
+
+    placed_words.append({
+        "word": first_word,
+        "row": center_row,
+        "col": center_col,
+        "direction": "across"
+    })
+
+    # Try to place remaining words with intersections
+    for word in words[1:]:
+        placed = False
+
+        # Try each already placed word
+        for target_word_info in placed_words:
+            target_word = target_word_info["word"]
+
+            # Find intersection
+            for i, char1 in enumerate(word):
+                for j, char2 in enumerate(target_word):
+                    if char1 == char2:
+                        # IMPORTANT: New word must be perpendicular to target word
+                        # char1 is at position i in the new word, char2 is at position j in target
+                        # We want to place the new word so that its char i aligns with target's char j
+                        if target_word_info["direction"] == "across":
+                            # Target is horizontal, so place new word DOWN (vertical)
+                            # The new word's i-th character should align with target's j-th position
+                            new_row = target_word_info["row"] - i  # Start i positions before the intersection
+                            new_col = target_word_info["col"] + j  # Align at target's column j
+
+                            # Check if valid placement
+                            if new_row >= 0 and new_col >= 0 and new_row + len(word) < grid_size:
+                                # Check for conflicts
+                                valid = True
+
+                                # Check all cells
+                                for k in range(len(word)):
+                                    cell = grid[new_row + k][new_col]
+                                    if cell != '' and cell != word[k]:
+                                        valid = False
+                                        break
+
+                                # Additional check: ensure neighboring cells (before and after) are empty
+                                # to prevent word concatenation AND ensure no cells adjacent (left/right)
+                                if valid:
+                                    # Check cell before word
+                                    if new_row > 0:
+                                        if grid[new_row - 1][new_col] != '':
+                                            valid = False
+                                    # Check cell after word
+                                    if new_row + len(word) < len(grid):
+                                        if grid[new_row + len(word)][new_col] != '':
+                                            valid = False
+                                    # Check LEFT and RIGHT adjacent cells for any position of the word
+                                    for k in range(len(word)):
+                                        # Check left side (except at intersection point)
+                                        if new_col > 0 and (new_row + k != target_word_info["row"]):
+                                            if grid[new_row + k][new_col - 1] != '':
+                                                valid = False
+                                                break
+                                        # Check right side (except at intersection point)
+                                        if new_col < len(grid[0]) - 1 and (new_row + k != target_word_info["row"]):
+                                            if grid[new_row + k][new_col + 1] != '':
+                                                valid = False
+                                                break
+
+                                if valid:
+                                    # Place word DOWN (vertical)
+                                    for k, char in enumerate(word):
+                                        grid[new_row + k][new_col] = char
+
+                                    placed_words.append({
+                                        "word": word,
+                                        "row": new_row,
+                                        "col": new_col,
+                                        "direction": "down"
+                                    })
+                                    placed = True
+                                    break
+                        else:
+                            # Target is DOWN, so place current word ACROSS (horizontal)
+                            new_row = target_word_info["row"] + j  # Intersect at target's position j
+                            new_col = target_word_info["col"] - i  # Start i positions before intersection
+
+                            if new_col >= 0 and new_row >= 0 and new_col + len(word) < grid_size:
+                                valid = True
+
+                                # Check all cells
+                                for k in range(len(word)):
+                                    cell = grid[new_row][new_col + k]
+                                    if cell != '' and cell != word[k]:
+                                        valid = False
+                                        break
+
+                                # Additional check: ensure neighboring cells are empty
+                                if valid:
+                                    # Check cell before word
+                                    if new_col > 0:
+                                        if grid[new_row][new_col - 1] != '':
+                                            valid = False
+                                    # Check cell after word
+                                    if new_col + len(word) < len(grid[0]):
+                                        if grid[new_row][new_col + len(word)] != '':
+                                            valid = False
+                                    # Check TOP and BOTTOM adjacent cells for any position of the word
+                                    for k in range(len(word)):
+                                        # Check top side (except at intersection point)
+                                        if new_row > 0 and (new_col + k != target_word_info["col"]):
+                                            if grid[new_row - 1][new_col + k] != '':
+                                                valid = False
+                                                break
+                                        # Check bottom side (except at intersection point)
+                                        if new_row < len(grid) - 1 and (new_col + k != target_word_info["col"]):
+                                            if grid[new_row + 1][new_col + k] != '':
+                                                valid = False
+                                                break
+
+                                if valid:
+                                    # Place word ACROSS (horizontal)
+                                    for k, char in enumerate(word):
+                                        grid[new_row][new_col + k] = char
+
+                                    placed_words.append({
+                                        "word": word,
+                                        "row": new_row,
+                                        "col": new_col,
+                                        "direction": "across"
+                                    })
+                                    placed = True
+                                    break
+
+                if placed:
+                    break
+
+            if placed:
+                break
+
+        # If couldn't place with intersection, try standalone
+        if not placed:
+            # Find a good position (near existing words)
+            for attempt in range(20):
+                direction = random.choice(["across", "down"])
+                if direction == "across":
+                    row = random.randint(0, grid_size - 5)
+                    col = random.randint(0, grid_size - len(word))
+                else:
+                    row = random.randint(0, grid_size - len(word))
+                    col = random.randint(0, grid_size - 5)
+
+                # Check if space is available
+                valid = True
+                if direction == "across":
+                    for i, char in enumerate(word):
+                        if grid[row][col + i] != '' and grid[row][col + i] != char:
+                            valid = False
+                            break
+                else:
+                    for i, char in enumerate(word):
+                        if grid[row + i][col] != '' and grid[row + i][col] != char:
+                            valid = False
+                            break
+
+                if valid:
+                    if direction == "across":
+                        for i, char in enumerate(word):
+                            grid[row][col + i] = char
+                    else:
+                        for i, char in enumerate(word):
+                            grid[row + i][col] = char
+
+                    placed_words.append({
+                        "word": word,
+                        "row": row,
+                        "col": col,
+                        "direction": direction
+                    })
+                    placed = True
+                    break
+
+    # Trim grid to content
+    # Find bounds
+    min_row, max_row = grid_size, -1
+    min_col, max_col = grid_size, -1
+
+    for i, row in enumerate(grid):
+        for j, cell in enumerate(row):
+            if cell != '':
+                min_row = min(min_row, i)
+                max_row = max(max_row, i)
+                min_col = min(min_col, j)
+                max_col = max(max_col, j)
+
+    if min_row > max_row or min_col > max_col:
+        return [], [], []
+
+    # Trim grid
+    trimmed_grid = []
+    for i in range(min_row, max_row + 1):
+        trimmed_grid.append(grid[i][min_col:max_col + 1])
+
+    # Adjust word positions
+    adjusted_words = []
+    for word_info in placed_words:
+        adjusted_words.append({
+            "word": word_info["word"],
+            "row": word_info["row"] - min_row,
+            "col": word_info["col"] - min_col,
+            "direction": word_info["direction"]
+        })
+
+    directions = [w["direction"] for w in adjusted_words]
+
+    return trimmed_grid, adjusted_words, directions
+
+
+def is_valid_crossword(grid, placed_words):
+    """Check if the crossword is valid - allows some disconnected words"""
+    if not grid or len(placed_words) < 3:
+        return False
+
+    # Count how many words have intersections
+    connected_count = 0
+
+    for word_info in placed_words:
+        has_intersection = False
+
+        for other_word_info in placed_words:
+            if other_word_info == word_info:
+                continue
+
+            # Two words must have different directions to intersect
+            if word_info['direction'] == other_word_info['direction']:
+                continue
+
+            # Check if they actually cross
+            if word_info['direction'] == "down":
+                if (word_info['col'] == other_word_info['col'] and
+                    other_word_info['row'] <= word_info['row'] < other_word_info['row'] + len(other_word_info['word'])):
+                    has_intersection = True
+                    break
+            else:
+                if (word_info['row'] == other_word_info['row'] and
+                    other_word_info['col'] <= word_info['col'] < other_word_info['col'] + len(other_word_info['word'])):
+                    has_intersection = True
+                    break
+
+        if has_intersection:
+            connected_count += 1
+
+    # Accept if at least 3 words are connected (out of 5)
+    return connected_count >= 3
+
+
+def generate_challenge_2(df):
+    """Generate Challenge 2: Crossword puzzle using dataset column names"""
+    # Available column names from Titanic dataset
+    columns = ['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age',
+               'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked']
+
+    # Filter to words of reasonable length (4-8 letters) for better crossword
+    suitable_words = [col for col in columns if 4 <= len(col) <= 8]
+
+    # Try to generate a valid crossword by retrying with different word combinations
+    max_attempts = 100
+    crossword_words = None
+    grid = None
+    placed_words = []
+
+    for attempt in range(max_attempts):
+        # Randomly select 5 different words
+        current_words = random.sample(suitable_words, min(5, len(suitable_words)))
+
+        # Generate crossword grid
+        grid, placed_words, directions = generate_crossword_grid(current_words)
+
+        # Check if all words were successfully placed
+        if grid and len(placed_words) == len(current_words):
+            # Check if the crossword is valid (most words connected)
+            if is_valid_crossword(grid, placed_words):
+                crossword_words = current_words
+                print(f"[SUCCESS] Generated valid crossword after {attempt + 1} attempts")
+                break
+
+    if not crossword_words:
+        # Fallback: use the last generated grid even if not fully connected
+        print("[WARNING] Could not generate fully connected crossword, using generated grid")
+        crossword_words = current_words if 'current_words' in locals() else random.sample(suitable_words, min(5, len(suitable_words)))
+        if not grid or len(placed_words) != len(crossword_words):
+            grid, placed_words, directions = generate_crossword_grid(crossword_words)
+
+    # Save answer image with the FULL grid (not trimmed)
+    answer_dir = 'answer'
+    answer_path = os.path.join(answer_dir, 'challenge_2_answer.png')
+    save_crossword_answer(grid, placed_words, answer_path)
+    print(f"[OK] Crossword answer saved to {answer_path}")
+
+    # Create blank grid by replacing all letters with spaces
+    blank_grid = [[' ' if cell != '' else '' for cell in row] for row in grid]
+
+    # Return both filled and blank grids
+    return {
+        "title": "Challenge 2: Decoding Station (Crossword Puzzle)",
+        "story": "You find a security terminal that requires decoding. The system displays a crossword puzzle that must be solved to access temporal coordinates.",
+        "task": "Complete the crossword puzzle using the column names from the Titanic dataset.",
+        "crossword_words": crossword_words,
+        "crossword_grid": blank_grid,  # Blank grid for user to fill
+        "crossword_grid_filled": grid,  # Filled grid for structure reference
+        "placed_words": placed_words,  # Contains adjusted positions
+        "directions": directions,
+        "answer_image": answer_path,
+        "hint": "GM Hint: Think about the column headers from the Titanic passenger database. The words are related to passenger information.",
+        "answer": f"The words to complete are: {', '.join(crossword_words).upper()}."
     }
 
 
@@ -255,7 +744,7 @@ def generate_challenge_3(df):
         age_bins = [0, 10, 20, 40, 60, 100]
         age_labels = ['<10', '10-20', '20-40', '40-60', '60+']
         df['AgeGroup'] = pd.cut(df['Age'], bins=age_bins, labels=age_labels, right=False)
-        age_survival = df.groupby('AgeGroup')['Survived'].mean()
+        age_survival = df.groupby('AgeGroup', observed=False)['Survived'].mean()
 
         sex_pclass_texts = [
             f"{sex.capitalize()} (Class {pclass}): {rate*100:.1f}%"
@@ -290,7 +779,7 @@ def generate_challenge_3(df):
 
         # 年龄段生还率柱状图age group survival bar chart
         plt.figure(figsize=(8, 6))
-        sns.barplot(x=age_survival.index, y=age_survival.values, palette="coolwarm")
+        sns.barplot(x=age_survival.index, y=age_survival.values, palette="coolwarm", hue=age_survival.index, legend=False)
         plt.title("Survival Rate by Age Group")
         plt.xlabel("Age Group")
         plt.ylabel("Survival Rate")
@@ -339,6 +828,8 @@ def generate_game_data():
     # Pass the full DataFrame so it can generate the boxplot
     challenge_1 = generate_challenge_1(df)
     
+    print("Generating challenge 2...")
+    challenge_2 = generate_challenge_2(df)
     print("Generating challenge 3...")
     challenge_3 = generate_challenge_3(df)
 
@@ -350,6 +841,8 @@ def generate_game_data():
         },
         "challenges": [
             challenge_1,
+            challenge_2,
+
             challenge_3
         ]
     }

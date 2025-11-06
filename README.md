@@ -105,6 +105,8 @@ Each challenge includes:
 - **Hint**: For the GM to guide players
 - **Answer**: Which card is the anomaly
 
+
+
 ## Development
 
 ### Code Architecture

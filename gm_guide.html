@@ -224,6 +224,84 @@
             font-weight: bold;
         }
         
+        /* Crossword Styles */
+        #crossword-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .crossword-content {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        
+        .crossword-grid-wrapper {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        table.crossword-grid {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        table.crossword-grid td {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ccc;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        table.crossword-grid td.filled {
+            background: #667eea;
+            color: white;
+        }
+        
+        table.crossword-grid td.empty {
+            background: #f0f0f0;
+        }
+        
+        .crossword-words-list {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 8px;
+        }
+        
+        .crossword-words-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .crossword-words-list li {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .answer-image-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff9e6;
+            border-radius: 8px;
+        }
+        
+        .answer-image-container img {
+            max-width: 800px;
+            display: block;
+            margin: 0 auto;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -339,65 +417,79 @@
 
 <strong>Card 1</strong>
 <pre><code>
-name: Carter, Rev. Ernest Courtenay
-Pclass: 2
-Age: 54.0
+name: Plotcharsky, Mr. Vasil
+Pclass: 3
+Age: nan
 Sex: male
-Fare: 270.29
+Fare: 7.9
 Embarked: S
 </code></pre>
 <strong>Card 2</strong>
 <pre><code>
-name: Andersson, Mr. Anders Johan
-Pclass: 3
-Age: 39.0
+name: Turpin, Mr. William John Robert
+Pclass: 2
+Age: 29.0
 Sex: male
-Fare: 31.27
+Fare: 21.0
 Embarked: S
 </code></pre>
 <strong>Card 3</strong>
 <pre><code>
-name: Tikkanen, Mr. Juho
+name: Turja, Miss. Anna Sofia
 Pclass: 3
-Age: 32.0
-Sex: male
-Fare: 7.92
+Age: 18.0
+Sex: female
+Fare: 9.84
 Embarked: S
 </code></pre>
 <strong>Card 4</strong>
 <pre><code>
-name: Carr, Miss. Helen "Ellen"
-Pclass: 3
-Age: 16.0
-Sex: female
-Fare: 7.75
-Embarked: Q
+name: Calic, Mr. Petar
+Pclass: 1
+Age: 17.0
+Sex: male
+Fare: 4.18
+Embarked: S
 </code></pre>
 <strong>Card 5</strong>
 <pre><code>
-name: Bishop, Mr. Dickinson H
-Pclass: 1
-Age: 25.0
-Sex: male
-Fare: 91.08
-Embarked: C
-</code></pre>
-<strong>Card 6</strong>
-<pre><code>
-name: Berriman, Mr. William John
+name: Hocking, Mr. Richard George
 Pclass: 2
 Age: 23.0
 Sex: male
-Fare: 13.0
+Fare: 11.5
 Embarked: S
+</code></pre>
+<strong>Card 6</strong>
+<pre><code>
+name: Williams, Mr. Charles Duane
+Pclass: 1
+Age: 51.0
+Sex: male
+Fare: 61.38
+Embarked: C
 </code></pre>
 
 <hr>
 <h3>GM Guide</h3>
 
-<blockquote><strong>Hint:</strong> GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that class. Players should compare each card's fare with the distribution shown in the chart for that card's class.</blockquote>
-<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('364147e5')">Click to Reveal Answer</button><div class="answer-content" id="answer-364147e5" style="display:none;">The forged card: 2nd class (Pclass=2) but paying £270.29, which doesn't match typical 2nd class fares (£10.50-73.50). <strong>(In this game, this card is Card 1)</strong></div></div></blockquote>
+<blockquote><strong>Hint:</strong> GM Hint: Refer to the box plot above. The forged card has a fare that doesn't match its class - either much higher or much lower than typical for that card's class. Players should compare each card's fare with the distribution shown in the chart for that card's class.</blockquote>
+<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('90aec7a6')">Click to Reveal Answer</button><div class="answer-content" id="answer-90aec7a6" style="display:none;">The forged card: 1st class (Pclass=1) but paying £4.18, which is slightly lower than typical 1st class fares (£5.00-512.33). <strong>(In this game, this card is Card 4)</strong></div></div></blockquote>
 <blockquote><strong>Obtain:</strong> <strong>Temporal Coordinate Fragment 1</strong> hidden under the forged card.</blockquote>
+
+<hr>
+
+<h2>Challenge 2: Decoding Station (Crossword Puzzle)</h2>
+
+<p>You find a security terminal that requires decoding. The system displays a crossword puzzle that must be solved to access temporal coordinates.</p>
+
+<strong>Task:</strong> Complete the crossword puzzle using the column names from the Titanic dataset.
+
+<div id='crossword-container' data-words='["Fare", "Name", "Cabin", "Ticket", "Parch"]' data-grid='[["", "", "", "T", ""], ["", "", "", "I", ""], ["", "", "", "C", ""], ["", "N", "", "K", ""], ["F", "A", "R", "E", ""], ["", "M", "", "T", ""], ["", "E", "", "", ""], ["C", "A", "B", "I", "N"], ["", "", "", "", ""], ["P", "", "", "", ""], ["A", "", "", "", ""], ["R", "", "", "", ""], ["C", "", "", "", ""], ["H", "", "", "", ""]]' data-placed-words='[{"word": "FARE", "row": 4, "col": 0, "direction": "across"}, {"word": "NAME", "row": 3, "col": 1, "direction": "down"}, {"word": "CABIN", "row": 7, "col": 0, "direction": "across"}, {"word": "TICKET", "row": 0, "col": 3, "direction": "down"}, {"word": "PARCH", "row": 9, "col": 0, "direction": "down"}]'></div>
+
+<strong>Hint:</strong> GM Hint: Think about the column headers from the Titanic passenger database. The words are related to passenger information.
+
+<div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('584e7e3b')">Click to Reveal Answer</button><div class="answer-content" id="answer-584e7e3b" style="display:none;"><div class='answer-image-container'><img src='answer\challenge_2_answer.png' alt='Crossword Answer' style='max-width: 100%; border: 2px solid #667eea; border-radius: 8px; padding: 10px; background: white;'/></div></div></div>
 
 <hr>
 <h2>Decipher the Lifeboat Code</h2>
@@ -414,38 +506,38 @@ Embarked: S
 
 <strong>Card 1</strong>
 <pre><code>
-Name: Reeves, Mr. David
+Name: Webber, Miss. Susan
 Pclass: 2
-Age: 36
-Sex: male
-Fare: 10.5
+Age: 32
+Sex: female
+Fare: 13.0
 Embarked: S
 </code></pre>
 <strong>Card 2</strong>
 <pre><code>
-Name: Foo, Mr. Choong
+Name: Adams, Mr. John
 Pclass: 3
-Age: 50
+Age: 26
 Sex: male
-Fare: 56.5
+Fare: 8.05
 Embarked: S
 </code></pre>
 <strong>Card 3</strong>
 <pre><code>
-Name: Zabour, Miss. Thamine
-Pclass: 3
-Age: 22
+Name: Carter, Mrs. William Ernest (Lucile Polk)
+Pclass: 1
+Age: 36
 Sex: female
-Fare: 14.45
-Embarked: C
+Fare: 120.0
+Embarked: S
 </code></pre>
 <strong>Card 4</strong>
 <pre><code>
-Name: Lobb, Mrs. William Arthur (Cordelia K Stanlick)
-Pclass: 3
-Age: 26
-Sex: female
-Fare: 16.1
+Name: Downton, Mr. William James
+Pclass: 2
+Age: 54
+Sex: male
+Fare: 26.0
 Embarked: S
 </code></pre>
 
@@ -453,7 +545,7 @@ Embarked: S
 <h3>GM Guide</h3>
 
 <blockquote><strong>Hint:</strong> Use the survival charts above to infer the 4-digit lifeboat code.</blockquote>
-<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('aab6a051')">Click to Reveal Answer</button><div class="answer-content" id="answer-aab6a051" style="display:none;">0100</div></div></blockquote>
+<blockquote><strong>Answer:</strong> <div class="answer-reveal"><button class="reveal-btn" onclick="toggleAnswer('9cfa8d8c')">Click to Reveal Answer</button><div class="answer-content" id="answer-9cfa8d8c" style="display:none;">1010</div></div></blockquote>
 <blockquote><strong>Obtain:</strong> <strong>Temporal Coordinate Fragment 3</strong> hidden within the lifeboat control panel.</blockquote>
 
 <hr>
@@ -478,6 +570,62 @@ Embarked: S
             btn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
         }
     }
+    
+    // Crossword generation and rendering
+    function renderCrossword() {
+        const container = document.getElementById('crossword-container');
+        if (!container) return;
+        
+        const wordsJson = container.getAttribute('data-words');
+        const gridJson = container.getAttribute('data-grid');
+        
+        if (!wordsJson) return;
+        
+        const words = JSON.parse(wordsJson);
+        const grid = gridJson ? JSON.parse(gridJson) : null;
+        
+        let html = '<div class="crossword-content">';
+        
+        // Render grid if available
+        if (grid && grid.length > 0) {
+            html += '<div class="crossword-grid-wrapper">';
+            html += '<p><strong>Crossword Grid:</strong></p>';
+            html += '<table class="crossword-grid">';
+            
+            // Render the grid - show all cells that contain content
+            for (let i = 0; i < grid.length; i++) {
+                html += '<tr>';
+                for (let j = 0; j < grid[i].length; j++) {
+                    const cell = grid[i][j];
+                    // Show all cells that have content (filled cells from the grid)
+                    if (cell !== '') {
+                        // Show as input field for user to fill
+                        html += `<td class="crossword-cell" style="background: #fff; border: 2px solid #667eea; width: 40px; height: 40px;"><input type="text" maxlength="1" style="width: 100%; height: 100%; border: none; text-align: center; font-weight: bold; font-size: 18px; text-transform: uppercase; background: #fef3c7;"></td>`;
+                    } else {
+                        // Empty space (black cell)
+                        html += `<td class="crossword-cell" style="background: #333; border: 1px solid #555; width: 40px; height: 40px;"></td>`;
+                    }
+                }
+                html += '</tr>';
+            }
+            
+            html += '</table></div>';
+        }
+        
+        // Word list and clues
+        html += '<div class="crossword-words-list"><p><strong>Words to find:</strong></p><ul>';
+        words.forEach(word => {
+            html += `<li>${word.toUpperCase()} (${word.length} letters)</li>`;
+        });
+        html += '</ul></div>';
+        
+        container.innerHTML = html;
+    }
+    
+    // Initialize crossword when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        renderCrossword();
+    });
     
     async function captureScreenshot() {
         const btn = document.getElementById('screenshot-btn');

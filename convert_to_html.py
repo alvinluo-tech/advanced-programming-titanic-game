@@ -370,6 +370,84 @@ def get_html_template():
             font-weight: bold;
         }
         
+        /* Crossword Styles */
+        #crossword-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .crossword-content {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        
+        .crossword-grid-wrapper {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        table.crossword-grid {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        table.crossword-grid td {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ccc;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        table.crossword-grid td.filled {
+            background: #667eea;
+            color: white;
+        }
+        
+        table.crossword-grid td.empty {
+            background: #f0f0f0;
+        }
+        
+        .crossword-words-list {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 8px;
+        }
+        
+        .crossword-words-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .crossword-words-list li {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .answer-image-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff9e6;
+            border-radius: 8px;
+        }
+        
+        .answer-image-container img {
+            max-width: 800px;
+            display: block;
+            margin: 0 auto;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -496,6 +574,62 @@ def get_html_template():
         }
     }
     
+    // Crossword generation and rendering
+    function renderCrossword() {
+        const container = document.getElementById('crossword-container');
+        if (!container) return;
+        
+        const wordsJson = container.getAttribute('data-words');
+        const gridJson = container.getAttribute('data-grid');
+        
+        if (!wordsJson) return;
+        
+        const words = JSON.parse(wordsJson);
+        const grid = gridJson ? JSON.parse(gridJson) : null;
+        
+        let html = '<div class="crossword-content">';
+        
+        // Render grid if available
+        if (grid && grid.length > 0) {
+            html += '<div class="crossword-grid-wrapper">';
+            html += '<p><strong>Crossword Grid:</strong></p>';
+            html += '<table class="crossword-grid">';
+            
+            // Render the grid - show all cells that contain content
+            for (let i = 0; i < grid.length; i++) {
+                html += '<tr>';
+                for (let j = 0; j < grid[i].length; j++) {
+                    const cell = grid[i][j];
+                    // Show all cells that have content (filled cells from the grid)
+                    if (cell !== '') {
+                        // Show as input field for user to fill
+                        html += `<td class="crossword-cell" style="background: #fff; border: 2px solid #667eea; width: 40px; height: 40px;"><input type="text" maxlength="1" style="width: 100%; height: 100%; border: none; text-align: center; font-weight: bold; font-size: 18px; text-transform: uppercase; background: #fef3c7;"></td>`;
+                    } else {
+                        // Empty space (black cell)
+                        html += `<td class="crossword-cell" style="background: #333; border: 1px solid #555; width: 40px; height: 40px;"></td>`;
+                    }
+                }
+                html += '</tr>';
+            }
+            
+            html += '</table></div>';
+        }
+        
+        // Word list and clues
+        html += '<div class="crossword-words-list"><p><strong>Words to find:</strong></p><ul>';
+        words.forEach(word => {
+            html += `<li>${word.toUpperCase()} (${word.length} letters)</li>`;
+        });
+        html += '</ul></div>';
+        
+        container.innerHTML = html;
+    }
+    
+    // Initialize crossword when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        renderCrossword();
+    });
+    
     async function captureScreenshot() {
         const btn = document.getElementById('screenshot-btn');
         const container = document.getElementById('guide-container');
@@ -614,7 +748,36 @@ def get_html_template():
     # Insert CSS
     return template_str.replace('CssStringPlaceholder', css)
 
+def format_challenge_2(data):
+    """Format Challenge 2 - Crossword Puzzle"""
+    md = f"\n## {data.get('title', 'Challenge 2')}\n\n"
+    md += f"{data.get('story', '')}\n\n"
+    md += f"**Task:** {data.get('task', '')}\n\n"
 
+    # Get crossword data
+    words = data.get('crossword_words', [])
+    grid = data.get('crossword_grid', [])
+    filled_grid = data.get('crossword_grid_filled', grid)  # Use filled grid for structure
+    placed_words = data.get('placed_words', [])
+    answer_image = data.get('answer_image', '')
+
+    md += f"<div id='crossword-container' " \
+          f"data-words='{json.dumps(words)}' " \
+          f"data-grid='{json.dumps(filled_grid)}' " \
+          f"data-placed-words='{json.dumps(placed_words)}'>" \
+          f"</div>\n\n"
+
+    md += f"**Hint:** {data.get('hint', '')}\n\n"
+
+    # Use answer image if available
+    if answer_image:
+        answer_text = f"<div class='answer-image-container'><img src='{answer_image}' alt='Crossword Answer' style='max-width: 100%; border: 2px solid #667eea; border-radius: 8px; padding: 10px; background: white;'/></div>"
+    else:
+        answer_text = data.get('answer', '')
+
+    md += f"[[REVEAL_ANSWER]]{answer_text}[[END_REVEAL]]\n\n"
+
+    return md
 def main():
     # Generate fresh game data (regenerates every run)
     game_data = generate_game_data()
@@ -628,9 +791,10 @@ def main():
     md_output += f"**Final Goal:** {game_data['story_background']['goal']}\n\n"
     md_output += "--- \n"
 
-    # Format function mapping
+    # Format function mapping~
     format_functions = [
         format_challenge_1,
+        format_challenge_2,
         format_challenge_3
     ]
     print("Converting challenges to Markdown...")

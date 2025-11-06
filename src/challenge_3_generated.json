@@ -5,35 +5,35 @@
     "instructions": "Predict which of the 4 passengers survived (1) or perished (0). Use the survival clues provided.",
     "passengers": [
         {
-            "Name": "Reeves, Mr. David",
+            "Name": "Webber, Miss. Susan",
             "Pclass": 2,
-            "Age": 36,
-            "Sex": "male",
-            "Fare": 10.5,
-            "Embarked": "S"
-        },
-        {
-            "Name": "Foo, Mr. Choong",
-            "Pclass": 3,
-            "Age": 50,
-            "Sex": "male",
-            "Fare": 56.5,
-            "Embarked": "S"
-        },
-        {
-            "Name": "Zabour, Miss. Thamine",
-            "Pclass": 3,
-            "Age": 22,
+            "Age": 32,
             "Sex": "female",
-            "Fare": 14.45,
-            "Embarked": "C"
+            "Fare": 13.0,
+            "Embarked": "S"
         },
         {
-            "Name": "Lobb, Mrs. William Arthur (Cordelia K Stanlick)",
+            "Name": "Adams, Mr. John",
             "Pclass": 3,
             "Age": 26,
+            "Sex": "male",
+            "Fare": 8.05,
+            "Embarked": "S"
+        },
+        {
+            "Name": "Carter, Mrs. William Ernest (Lucile Polk)",
+            "Pclass": 1,
+            "Age": 36,
             "Sex": "female",
-            "Fare": 16.1,
+            "Fare": 120.0,
+            "Embarked": "S"
+        },
+        {
+            "Name": "Downton, Mr. William James",
+            "Pclass": 2,
+            "Age": 54,
+            "Sex": "male",
+            "Fare": 26.0,
             "Embarked": "S"
         }
     ],
@@ -51,5 +51,5 @@
         "hint\\challenge_3_sex_pclass.png",
         "hint\\challenge_3_age_group.png"
     ],
-    "correct_code": "0100"
+    "correct_code": "1010"
 }
